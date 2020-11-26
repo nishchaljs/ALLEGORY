@@ -280,7 +280,7 @@
 
         <!-- request button -->
         <TextView
-            android:id="@+id/content_request_btn"
+            android:id="@+id/content_read_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -291,16 +291,32 @@
             android:textColor="@color/mainTextColor"
             android:textSize="20sp"
             android:gravity="center_horizontal" />
-
         <TextView
+            android:id="@+id/content_update_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="Posted 5 days ago"
+            android:layout_marginTop="16dp"
+            android:background="@color/btnRequest"
+            android:padding="10dp"
+            android:text="UPDATE IT"
             android:textAlignment="center"
-            android:textColor="@color/contentBadgeTitle"
-            android:textSize="12sp"
-            android:gravity="center_horizontal" />
+            android:textColor="@color/mainTextColor"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            android:visibility="visible"/>
+        <TextView
+            android:id="@+id/content_delete_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/btnRequest"
+            android:padding="10dp"
+            android:text="DELETE IT"
+            android:textAlignment="center"
+            android:textColor="@color/mainTextColor"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            android:visibility="visible"/>
 
     </LinearLayout>
 

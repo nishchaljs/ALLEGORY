@@ -55,4 +55,12 @@
     <color name="follow_button_pressed_color">#0087BC</color>
     <color name="follow_button_light_color">@color/white</color>
     <color name="follow_button_light_pressed_color">#f7f7f7</color>
+
+
+
+    <color name="grey">#E9EAEE</color>
+    <color name="yellow">#F8BA0F</color>
+    <color name="goodgrey">#535353</color>
+    <color name="blue">#293859</color>
+    <color name="lightgrey">#EEEEEE</color>
 </resources>

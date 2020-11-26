@@ -1,6 +1,7 @@
 package com.ramotion.navigationtoolbar.example
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.Menu
@@ -17,6 +18,7 @@ import com.ramotion.navigationtoolbar.NavigationToolBarLayout
 import com.ramotion.navigationtoolbar.SimpleSnapHelper
 import com.ramotion.navigationtoolbar.example.header.HeaderAdapter
 import com.ramotion.navigationtoolbar.example.header.HeaderItemTransformer
+import com.ramotion.navigationtoolbar.example.pager.Profile
 import com.ramotion.navigationtoolbar.example.pager.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.ceil
@@ -35,8 +37,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show()
+            val intent = Intent(this, Profile::class.java)
+            //intent.putExtra("key", value)
+            startActivity(intent)
+        }
+
+        upload.setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                    .setAction("Action", null).show()
+            val intent = Intent(this, Upload::class.java)
+            //intent.putExtra("key", value)
+            startActivity(intent)
         }
 
         val header = findViewById<NavigationToolBarLayout>(R.id.navigation_toolbar_layout)
@@ -49,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-//        menuInflater.inflate(R.menu.menu_main, menu)
+       // menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 

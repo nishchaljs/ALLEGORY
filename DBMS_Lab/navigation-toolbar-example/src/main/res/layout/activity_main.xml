@@ -13,6 +13,12 @@
 
     <include layout="@layout/content_layout"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:orientation="vertical">
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -20,6 +26,19 @@
         android:layout_margin="@dimen/fab_margin"
         android:layout_gravity="end|bottom"
         app:layout_behavior="com.ramotion.navigationtoolbar.example.FABBehavior"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/ic_person" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/upload"
+        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_behavior="com.ramotion.navigationtoolbar.example.FABBehavior"
+        app:srcCompat="@drawable/ic_edit_menu_item" />
+
+
+    </LinearLayout>
 
 </com.ramotion.navigationtoolbar.NavigationToolBarLayout>
