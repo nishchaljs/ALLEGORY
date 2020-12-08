@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:allowBackup">
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -28,6 +29,8 @@
         </activity>
     <activity android:name=".pager.Profile"/>
         <activity android:name=".Upload"/>
+        <activity android:name=".login_activity"/>
+        <activity android:name=".register_activity"/>
     </application>
 
 </manifest>

@@ -368,6 +368,21 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/signout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/btnRequest"
+                android:padding="10dp"
+                android:text="SIGN OUT"
+                android:textAlignment="center"
+                android:textColor="@color/mainTextColor"
+                android:textSize="20sp"
+                android:gravity="center_horizontal"
+                android:visibility="visible"/>
         </LinearLayout>
 
 

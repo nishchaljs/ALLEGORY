@@ -10,7 +10,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlin.random.Random.Default.Companion
+//import kotlin.random.Random.Default.Companion
 
 
 class test: AppCompatActivity() {

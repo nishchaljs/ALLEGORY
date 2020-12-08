@@ -1,189 +1,188 @@
 package com.ramotion.navigationtoolbar.example
 
-import android.animation.ObjectAnimator
+import android.app.ProgressDialog
 import android.content.Intent
-import android.graphics.Rect
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.FrameLayout
+import android.util.Log
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
-import androidx.core.content.ContextCompat
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.snackbar.Snackbar
-import com.ramotion.navigationtoolbar.HeaderLayout
-import com.ramotion.navigationtoolbar.HeaderLayoutManager
-import com.ramotion.navigationtoolbar.NavigationToolBarLayout
-import com.ramotion.navigationtoolbar.SimpleSnapHelper
-import com.ramotion.navigationtoolbar.example.header.HeaderAdapter
-import com.ramotion.navigationtoolbar.example.header.HeaderItemTransformer
-import com.ramotion.navigationtoolbar.example.pager.Profile
-import com.ramotion.navigationtoolbar.example.pager.ViewPagerAdapter
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlin.math.ceil
-import kotlin.math.max
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.SignInButton
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : AppCompatActivity() {
     private val itemCount = 40
+    private var progressDialog: ProgressDialog? = null
     private val dataSet = ExampleDataSet()
-
+    private var user: FirebaseUser? = null
     private var isExpanded = true
     private var prevAnchorPosition = 0
+    val RC_SIGN_IN: Int = 1
+    lateinit var mGoogleSignInClient: GoogleSignInClient
+    lateinit var mGoogleSignInOptions: GoogleSignInOptions
+    private lateinit var firebaseAuth: FirebaseAuth
+    private  var firebaseAuth1: FirebaseAuth? = null
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
 
-        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-            val intent = Intent(this, Profile::class.java)
-            //intent.putExtra("key", value)
-            startActivity(intent)
+        user = firebaseAuth1?.currentUser
+
+        if (user != null) {
+            finish()
+            startActivity(Intent(this, login_activity::class.java))
         }
 
-        upload.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                    .setAction("Action", null).show()
-            val intent = Intent(this, Upload::class.java)
-            //intent.putExtra("key", value)
-            startActivity(intent)
+        val login = findViewById<Button>(R.id.btnSignIn)
+        val email = findViewById<AutoCompleteTextView>(R.id.atvEmailLog)
+        val pwd = findViewById<AutoCompleteTextView>(R.id.atvPasswordLog)
+        val signup = findViewById<TextView>(R.id.tvSignIn)
+        val google = findViewById<SignInButton>(R.id.ivGoogle)
+        val anonymous = findViewById<TextView>(R.id.normalSignIn)
+
+        anonymous.setOnClickListener{
+            var auth = Firebase.auth
+            progressDialog?.setMessage("Verificating...")
+            progressDialog?.show()
+            auth.signInAnonymously()
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            val user = auth.currentUser
+                            progressDialog?.dismiss()
+                            Toast.makeText(this@MainActivity, "Welcome USer", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this@MainActivity,login_activity::class.java))
+                        } else {
+                            progressDialog?.dismiss()
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(baseContext, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show()
+                        }
+
+                        // ...
+                    }
         }
 
-        val header = findViewById<NavigationToolBarLayout>(R.id.navigation_toolbar_layout)
-        val viewPager = findViewById<ViewPager>(R.id.pager)
 
-        initActionBar()
-        initViewPager(header, viewPager)
-        initHeader(header, viewPager)
+        configureGoogleSignIn()
+        progressDialog = ProgressDialog(this)
+        google.setOnClickListener {
+
+            signIn()
+        }
+        firebaseAuth = FirebaseAuth.getInstance()
+
+
+        signup.setOnClickListener{
+            startActivity(Intent(this@MainActivity,register_activity::class.java))
+        }
+
+        login.setOnClickListener { view ->
+            val inEmail: String = email.getText().toString()
+            val inPassword: String = pwd.getText().toString()
+
+            if (validateInput(inEmail, inPassword)) {
+                signUser(inEmail, inPassword)
+            }
+        }
+
+
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-       // menuInflater.inflate(R.menu.menu_main, menu)
+
+
+    private fun configureGoogleSignIn() {
+        mGoogleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions)
+
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)
+                firebaseAuthWithGoogle(account!!)
+            } catch (e: ApiException) {
+                Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
+        val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener {
+            if (it.isSuccessful) {
+
+                startActivity(Intent(this@MainActivity,login_activity::class.java))
+            } else {
+                Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun signIn() {
+        mGoogleSignInClient.signOut()
+        val signInIntent: Intent = mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+
+    }
+
+    fun validateInput(inemail: String, inpassword: String): Boolean {
+        val login = findViewById<Button>(R.id.btnSignIn)
+        val email = findViewById<AutoCompleteTextView>(R.id.atvEmailLog)
+        val pwd = findViewById<AutoCompleteTextView>(R.id.atvPasswordLog)
+        if (inemail.isEmpty()) {
+            email.setError("Email field is empty.")
+            return false
+        }
+        if (inpassword.isEmpty()) {
+            pwd.setError("Password is empty.")
+            return false
+        }
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+     fun signUser(email: String, password: String) {
 
-        return when (item.itemId) {
-            //R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+         // ...
+// Initialize Firebase Auth
+         var auth: FirebaseAuth = Firebase.auth
 
-    private fun initActionBar() {
-        val toolbar = navigation_toolbar_layout.toolBar
-        setSupportActionBar(toolbar)
-        supportActionBar?.apply {
-            setDisplayShowTitleEnabled(false)
-            setDisplayHomeAsUpEnabled(true)
-        }
-    }
+        progressDialog?.setMessage("Verificating...")
+        progressDialog?.show()
+         println("Inside Signin")
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
 
-    private fun initViewPager(header: NavigationToolBarLayout, viewPager: ViewPager) {
-        viewPager.adapter = ViewPagerAdapter(this, itemCount, dataSet.viewPagerDataSet)
-        viewPager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
-            override fun onPageSelected(position: Int) {
-                header.smoothScrollToPosition(position)
-            }
-        })
-    }
-
-    private fun initHeader(header: NavigationToolBarLayout, viewPager: ViewPager) {
-        val titleLeftOffset = resources.getDimensionPixelSize(R.dimen.title_left_offset)
-        val lineRightOffset = resources.getDimensionPixelSize(R.dimen.line_right_offset)
-        val lineBottomOffset = resources.getDimensionPixelSize(R.dimen.line_bottom_offset)
-        val lineTitleOffset = resources.getDimensionPixelSize(R.dimen.line_title_offset)
-
-        val headerOverlay = findViewById<FrameLayout>(R.id.header_overlay)
-        header.setItemTransformer(HeaderItemTransformer(headerOverlay,
-                titleLeftOffset, lineRightOffset, lineBottomOffset, lineTitleOffset))
-        header.setAdapter(HeaderAdapter(itemCount, dataSet.headerDataSet, headerOverlay))
-
-        header.addItemChangeListener(object : HeaderLayoutManager.ItemChangeListener {
-            override fun onItemChangeStarted(position: Int) {
-                prevAnchorPosition = position
-            }
-
-            override fun onItemChanged(position: Int) {
-                viewPager.currentItem = position
-            }
-        })
-
-        header.addItemClickListener(object : HeaderLayoutManager.ItemClickListener {
-            override fun onItemClicked(viewHolder: HeaderLayout.ViewHolder) {
-                viewPager.currentItem = viewHolder.position
-            }
-        })
-
-        SimpleSnapHelper().attach(header)
-        initDrawerArrow(header)
-        initHeaderDecorator(header)
-    }
-
-    private fun initDrawerArrow(header: NavigationToolBarLayout) {
-        val drawerArrow = DrawerArrowDrawable(this)
-        drawerArrow.color = ContextCompat.getColor(this, android.R.color.white)
-        drawerArrow.progress = 1f
-
-        header.addHeaderChangeStateListener(object : HeaderLayoutManager.HeaderChangeStateListener() {
-            private fun changeIcon(progress: Float) {
-                ObjectAnimator.ofFloat(drawerArrow, "progress", progress).start()
-                isExpanded = progress == 1f
-                if (isExpanded) {
-                    prevAnchorPosition = header.getAnchorPos()
-                }
-            }
-
-            override fun onMiddle() = changeIcon(0f)
-            override fun onExpanded() = changeIcon(1f)
-        })
-
-        val toolbar = header.toolBar
-        toolbar.navigationIcon = drawerArrow
-        toolbar.setNavigationOnClickListener {
-            if (!isExpanded) {
-                return@setNavigationOnClickListener
-            }
-            val anchorPos = header.getAnchorPos()
-            if (anchorPos == HeaderLayout.INVALID_POSITION) {
-                return@setNavigationOnClickListener
-            }
-
-            if (anchorPos == prevAnchorPosition) {
-                header.collapse()
+            println("Inside Signin _ but no")
+            if (task.isSuccessful) {
+                progressDialog?.dismiss()
+                Toast.makeText(this@MainActivity, "Login Successful", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this@MainActivity,login_activity::class.java))
             } else {
-                header.smoothScrollToPosition(prevAnchorPosition)
+                progressDialog?.dismiss()
+                Toast.makeText(this@MainActivity, "Invalid email or password", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun initHeaderDecorator(header: NavigationToolBarLayout) {
-        val decorator = object :
-                HeaderLayoutManager.ItemDecoration,
-                HeaderLayoutManager.HeaderChangeListener {
-
-            private val dp5 = resources.getDimensionPixelSize(R.dimen.decor_bottom)
-
-            private var bottomOffset = dp5
-
-            override fun onHeaderChanged(lm: HeaderLayoutManager, header: HeaderLayout, headerBottom: Int) {
-                val ratio = max(0f, headerBottom.toFloat() / header.height - 0.5f) / 0.5f
-                bottomOffset = ceil(dp5 * ratio).toInt()
-            }
-
-            override fun getItemOffsets(outRect: Rect, viewHolder: HeaderLayout.ViewHolder) {
-                outRect.bottom = bottomOffset
-            }
-        }
-
-        header.addItemDecoration(decorator)
-        header.addHeaderChangeListener(decorator)
-    }
 }

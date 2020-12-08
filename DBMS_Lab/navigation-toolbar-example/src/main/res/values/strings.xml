@@ -8,6 +8,7 @@
     <string name="cd_header_item_background">header item background</string>
 
     <string name="job_success">Job Success</string>
+<!--    <string name="default_web_client_id">565129450354-if11uloi11pn1dr89v7gk2krm83jl6sm.apps.googleusercontent.com</string>-->
     <string name="ui_ux_designer">UI/UX Designer</string>
     <string name="my_desc">Doing at the sweet spot between aesthetics and elegance to give life to your brand.My opinion belong to nobody but myself.</string>
     <string name="about_me">About Me</string>
@@ -41,4 +42,13 @@
     <string name="content_to1_mock">46th Ave</string>
     <string name="content_to2_mock">Woodside, NY 11101</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="appname">LogRegForm</string>
+    <string name="usernameReg">Username</string>
+    <string name="emailReg">Email</string>
+    <string name="passwordReg">Password</string>
+    <string name="sign_upReg">Sign up</string>
+    <string name="sign_inLog">Sign in</string>
+    <string name="signin_redirect">Already a member? Sign in!</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="signup_redirect">Don\'t have an account? Register here!</string>
 </resources>

@@ -31,13 +31,13 @@
 //            val vi = LayoutInflater.from(context)
 //            cell = vi.inflate(R.layout.cell, parent, false) as FoldingCell
 //            // binding view parts to view holder
-//            viewHolder.price = cell.findViewById(R.id.title_price)
-//            viewHolder.time = cell.findViewById(R.id.title_time_label)
-//            viewHolder.date = cell.findViewById(R.id.title_date_label)
-//            viewHolder.fromAddress = cell.findViewById(R.id.title_from_address)
-//            viewHolder.toAddress = cell.findViewById(R.id.title_to_address)
-//            viewHolder.requestsCount = cell.findViewById(R.id.title_requests_count)
-//            viewHolder.pledgePrice = cell.findViewById(R.id.title_pledge)
+////            viewHolder.price = cell.findViewById(R.id.title_price)
+////            viewHolder.time = cell.findViewById(R.id.title_time_label)
+////            viewHolder.date = cell.findViewById(R.id.title_date_label)
+////            viewHolder.fromAddress = cell.findViewById(R.id.title_from_address)
+////            viewHolder.toAddress = cell.findViewById(R.id.title_to_address)
+////            viewHolder.requestsCount = cell.findViewById(R.id.title_requests_count)
+////            viewHolder.pledgePrice = cell.findViewById(R.id.title_pledge)
 //            viewHolder.contentRequestBtn = cell.findViewById(R.id.content_request_btn)
 //            cell.tag = viewHolder
 //        } else {
@@ -115,24 +115,14 @@
 //        }
 //    }
 //
-//   fun onBindViewHolder(holder: PageItem, position: Int) {
-//        when (holder) {
-//            is ItemUser -> { holder.setContent(dataSet.getItemData(position)) }
-//            //is ItemImage -> { holder.setImage(dataSet.secondItemImage) }
-//        }
-//    }
 //
 ////    override fun getItemViewType(position: Int): Int {
 ////        return (if (position == 1) ItemType.IMAGE else ItemType.USER).value
 ////    }
 //
-//    fun onViewRecycled(holder: PageItem) {
-//        super.onViewRecycled(holder)
-//        holder.clearContent()
-//    }
 //
 //    private fun createItemUser(parent: ViewGroup): ItemUser {
-//        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_user, parent, false)
+//        val view = LayoutInflater.from(parent.context).inflate(R.layout.list, parent, false)
 //        return ItemUser(view)
 //    }
 //}
