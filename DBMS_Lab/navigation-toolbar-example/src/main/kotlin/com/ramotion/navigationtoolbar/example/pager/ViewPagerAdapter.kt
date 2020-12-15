@@ -39,7 +39,9 @@ class ViewPagerAdapter(val context:Context, private val count: Int,
         val random = Random()
     }
 
-    override fun getCount(): Int = count
+    override fun getCount(): Int {
+        return count
+    }
 
     override fun isViewFromObject(view: View, key: Any): Boolean = view == key
 
@@ -58,7 +60,7 @@ class ViewPagerAdapter(val context:Context, private val count: Int,
     override fun getPageTitle(position: Int): CharSequence = position.toString()
 
     private fun initRecyclerView(recyclerView: RecyclerView, position: Int) {
-        val adapter = PageAdapter(5, dataSet.getPageData(position))
+        val adapter = PageAdapter(getCount(), dataSet.getPageData(position), position,recyclerView.context )
 
         // prepare elements to display
         //val items = Item.getTestingList()
@@ -69,11 +71,12 @@ class ViewPagerAdapter(val context:Context, private val count: Int,
                 // Your logic
                 // toggle clicked cell state
 
-                // toggle clicked cell state
-                (view as FoldingCell).toggle(false)
+                    (view as FoldingCell).toggle(false)
+
                 // register in adapter that state for selected cell is toggled
                 // register in adapter that state for selected cell is toggled
                 adapter.registerToggle(position)
+
 
             }
         })

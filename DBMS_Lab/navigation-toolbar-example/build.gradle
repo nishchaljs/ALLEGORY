@@ -1,10 +1,14 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.chaquo.python'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+    androidExtensions {
+        experimental = true
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.ramotion.navigationtoolbar.example"
@@ -12,7 +16,25 @@ android {
         targetSdkVersion 28
         versionCode 3
         versionName "1.2"
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
 
+        python {
+                buildPython "C:\\\\Users\\\\nishc_omjn2ty\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python39\\\\python.exe"
+            pip {
+                // A pip requirement specifier, with or without a version number:
+//                install "SQLAlchemy"
+//                install "git+https://github.com/psycopg/psycopg3.git#subdirectory=psycopg3"
+//                install "psycopg2=2.8.6"
+                  install "ibmdb2"
+            }
+
+//            pip{
+//        //        install "psycopg2"
+////                install "libpq-dev"
+//            }
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
@@ -48,4 +70,9 @@ dependencies {
     //implementation 'com.google.firebase:firebase-analytics-ktx:17.5.0'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation "com.github.ptrbrynt:FirestoreLiveData:1.1.1"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
+    implementation 'com.google.firebase:firebase-database-ktx'
 }

@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
+            android:id="@+id/name"
             android:text="Title of the Story"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
@@ -116,7 +117,7 @@
                     android:text="Category" />
 
                 <TextView
-                    android:id="@+id/content_from_address_1"
+                    android:id="@+id/type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/content_from_badge"
@@ -144,7 +145,7 @@
                     android:text="Genre" />
 
                 <TextView
-                    android:id="@+id/content_to_address_1"
+                    android:id="@+id/genre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@id/content_to_badge"
@@ -265,7 +266,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:text="Number of Reads" />
+                android:text="Description" />
 
             <TextView
                 android:id="@+id/description"
@@ -277,6 +278,30 @@
                  />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/blank1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/mainTextColor"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/blank2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="10dp"
+            android:textAlignment="center"
+            android:textColor="@color/mainTextColor"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            android:visibility="gone"/>
 
         <!-- request button -->
         <TextView

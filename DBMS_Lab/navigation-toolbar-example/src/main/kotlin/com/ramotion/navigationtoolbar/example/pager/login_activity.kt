@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -16,11 +17,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
+import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.ptrbrynt.firestorelivedata.FirestoreModel
+import com.ptrbrynt.firestorelivedata.asLiveData
 import com.ramotion.foldingcell.FoldingCell
 import com.ramotion.navigationtoolbar.HeaderLayout
 import com.ramotion.navigationtoolbar.HeaderLayoutManager
@@ -37,7 +42,7 @@ import kotlin.math.max
 
 
 class login_activity : AppCompatActivity() {
-    private val itemCount = 40
+    private var itemCount = 40
     private val dataSet = ExampleDataSet()
 
     private var isExpanded = true
@@ -49,6 +54,26 @@ class login_activity : AppCompatActivity() {
 
 
         setContentView(R.layout.activity_main)
+
+        val db = Firebase.firestore;
+
+//        suspend fun docx():Int {
+//            db.collection("publication")
+//                    .get()
+//                    .addOnSuccessListener { result ->
+//                        itemCount = result.documents.size
+//                        for (document in result) {
+//                            Log.d("Result", "${document.id} => ${document.data}")
+//                        }
+//                    }
+//                    .addOnFailureListener { exception ->
+//                        Log.w("Result", "Error getting documents.", exception)
+//                    }
+//                    .await()
+//
+//            println("Item Count $itemCount")
+//            return itemCount
+//        }
 
         fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -131,7 +156,7 @@ class login_activity : AppCompatActivity() {
         val headerOverlay = findViewById<FrameLayout>(R.id.header_overlay)
         header.setItemTransformer(HeaderItemTransformer(headerOverlay,
                 titleLeftOffset, lineRightOffset, lineBottomOffset, lineTitleOffset))
-        header.setAdapter(HeaderAdapter(itemCount, dataSet.headerDataSet, headerOverlay))
+        header.setAdapter(HeaderAdapter(40, dataSet.headerDataSet, headerOverlay))
 
         header.addItemChangeListener(object : HeaderLayoutManager.ItemChangeListener {
             override fun onItemChangeStarted(position: Int) {
@@ -214,3 +239,4 @@ class login_activity : AppCompatActivity() {
         header.addHeaderChangeListener(decorator)
     }
 }
+

@@ -1,5 +1,6 @@
 package com.ramotion.navigationtoolbar.example.pager
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import java.util.*
 
 
 class PageAdapter(private val count: Int,
-                  private val dataSet: PageDataSet) : RecyclerView.Adapter<PageItem>() {
+                  private val dataSet: PageDataSet, private val page: Int, private val context: Context) : RecyclerView.Adapter<PageItem>() {
 
     private var unfoldedIndexes = HashSet<Int>()
     private var defaultRequestBtnClickListener: View.OnClickListener? = null
@@ -30,6 +31,7 @@ class PageAdapter(private val count: Int,
 
     override fun getItemCount() = count
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PageItem {
         return when (ItemType.fromInt(viewType)) {
             ItemType.USER -> createItemUser(parent)
@@ -39,7 +41,9 @@ class PageAdapter(private val count: Int,
 
     override fun onBindViewHolder(holder: PageItem, position: Int) {
         when (holder) {
-            is ItemUser -> { holder.setContent(dataSet.getItemData(position)) }
+
+            is ItemUser -> { holder.
+            setContent(dataSet.getItemData(position,page), position,page, context) }
             //is ItemImage -> { holder.setImage(dataSet.secondItemImage) }
         }
     }
@@ -57,7 +61,7 @@ class PageAdapter(private val count: Int,
 
     private fun createItemUser(parent: ViewGroup): ItemUser {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cell, parent, false)
-        return ItemUser(view)
+        return ItemUser(view, parent.context)
     }
 
 

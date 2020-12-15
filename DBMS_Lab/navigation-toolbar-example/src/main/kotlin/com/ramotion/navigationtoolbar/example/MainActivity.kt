@@ -3,8 +3,10 @@ package com.ramotion.navigationtoolbar.example
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.*
+import android.widget.AutoCompleteTextView
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -17,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 
 
@@ -32,19 +35,24 @@ class MainActivity : AppCompatActivity() {
     lateinit var mGoogleSignInOptions: GoogleSignInOptions
     private lateinit var firebaseAuth: FirebaseAuth
     private  var firebaseAuth1: FirebaseAuth? = null
+    private lateinit var mDatabase: DatabaseReference
+    private lateinit var mMessageReference: DatabaseReference
+    lateinit  var publist: MutableList<publicationModel>
+    private val auth: FirebaseAuth? = null
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
         user = firebaseAuth1?.currentUser
-
-        if (user != null) {
-            finish()
+        println("User is $user")
+        var auth = FirebaseAuth.getInstance()
+        if (auth.currentUser != null) {
             startActivity(Intent(this, login_activity::class.java))
+            finish()
         }
+        setContentView(R.layout.activity_login)
 
         val login = findViewById<Button>(R.id.btnSignIn)
         val email = findViewById<AutoCompleteTextView>(R.id.atvEmailLog)
@@ -86,6 +94,54 @@ class MainActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
 
+//some code
+        class data{
+    var name: String?=null
+    var auhtor: String?=null
+    var type: String?=null
+}
+
+//get reference to the "users" node
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("publication")
+//        val pubID= mDatabase.push().key
+ //       val pub = publicationModel( pubID!!,"Story of a young boy","Mr Young", "Story")
+//         mDatabase.child(pubID).setValue(pub).addOnCompleteListener{
+//             println("Pub created")
+//         }
+       mMessageReference = FirebaseDatabase.getInstance().getReference("publication")
+       publist = mutableListOf()
+        mMessageReference.addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()){
+                    for(h in snapshot.children){
+                        val data = h.getValue(publicationModel::class.java)
+                        publist.add(data!!)
+                    }
+                }
+            }
+
+        })
+
+//        val db = Firebase.firestore
+//        db.collection("publisher")
+//                .get()
+//                .addOnSuccessListener { result ->
+//                    for (document in result) {
+//                        Log.d("Result", "${document.id} => ${document.data}")
+//                    }
+//                }
+//                .addOnFailureListener { exception ->
+//                    Log.w("Result", "Error getting documents.", exception)
+//                }
+
+
+
         signup.setOnClickListener{
             startActivity(Intent(this@MainActivity,register_activity::class.java))
         }
@@ -98,6 +154,70 @@ class MainActivity : AppCompatActivity() {
                 signUser(inEmail, inPassword)
             }
         }
+
+//        if (! Python.isStarted()) {
+//            Python.start(AndroidPlatform(this))
+//        }
+//
+//        val py = Python.getInstance()
+//        val module = py.getModule("db")
+//        println("Outside try")
+//
+//        try {
+//            println("Inside try")
+//            val bytes = module.callAttr("plot").toJava(ByteArray::class.java)
+//            print("output is here $bytes")
+//        } catch (e: PyException) {
+//            println("Error is here haha $e")
+//           // Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+//        }
+        //Creating the connection
+
+        //Creating the connection
+//        val url = "jdbc:db2://dashdb-txn-sbox-yp-lon02-07.services.eu-gb.bluemix.net:50000/BLUDB:retrieveMessagesFromServerOnGetMessage=true;"
+//        val user = "ttm65995"
+//        val pass = "nmvs48nv5b@8mp6h"
+//        var con: Connection? = null
+//
+//        val purl = "jdbc:postgresql://localhost/postgres"
+//        val puser = "postgres"
+//        val password = "qwerty123456"
+//
+//        var conn: Connection? = null
+//        try {
+//            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+//            StrictMode.setThreadPolicy(policy)
+//            Class.forName("org.postgresql.Driver");
+//            conn = DriverManager.getConnection(purl, puser, password)
+//            println("Connected to the PostgreSQL server successfully.")
+//        } catch (e: SQLException) {
+//            System.out.println(e)
+//            println("PSQL FLOP SHOW.")
+//        }
+//        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+//        StrictMode.setThreadPolicy(policy)
+//
+//        try {
+//            //DriverManager.registerDriver(com.ibm.db2.app);
+//
+//            Class.forName("com.ibm.db2.jcc.DB2Driver")
+//
+//            //Reference to connection interface
+//            con = DriverManager.getConnection(url, user, pass)
+//            val st: Statement = con.createStatement()
+//            val sql = "SELECT ADMIN_NAME FROM ADMIN"
+//            val rs: ResultSet = st.executeQuery(sql)
+//            //            int m = st.executeUpdate(sql);
+//            while (rs.next()) {
+//                val empNo: String = rs.getString(1)
+//                println("Employee name = $empNo")
+//            }
+//            println("Values : $rs")
+//            con.close()
+//        } catch (ex: Exception) {
+//            println("Not working")
+//            System.err.println(ex)
+//        }
 
 
     }

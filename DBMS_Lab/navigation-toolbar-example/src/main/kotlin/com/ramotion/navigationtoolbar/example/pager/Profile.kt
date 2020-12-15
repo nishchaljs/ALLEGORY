@@ -28,11 +28,13 @@ class Profile: AppCompatActivity() {
         signout.setOnClickListener{
             Firebase.auth.signOut()
             startActivity(Intent(this, MainActivity::class.java))
+            finishAffinity()
         }
         //handle button click
         mStartActBtn.setOnClickListener {
             //start activity intent
             startActivity(Intent(this, MainActivity::class.java))
+            finishAffinity()
         }
 
     }

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="310dp"
     android:orientation="vertical"
-    android:paddingTop="@dimen/intrinsic_padding">
+    android:paddingTop="@dimen/intrinsic_padding"
+    android:id="@+id/card">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
@@ -35,7 +36,7 @@
                 android:layout_height="@dimen/post_list_item_author_image_side"
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@+id/postImageView"
-                android:src="@drawable/aaron_bradley"
+                android:src="@drawable/ic_person"
                 android:layout_marginRight="@dimen/intrinsic_padding"
                 android:layout_marginTop="@dimen/post_list_item_author_image_margin" />
 
