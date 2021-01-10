@@ -1,7 +1,9 @@
 package com.ramotion.navigationtoolbar.example
 
-class publicationModel (val id: String, val name: String, val author: String, val type: String, val genre: String, val desc: String, val img: String){
-    constructor(): this("","","","", "", "",""){
+class publicationModel (var id: String, var name: String, var author: String, var type: String,
+                        var genre: String, var desc: String, var img: String, var email:String,
+                        var time: String, var date: String, var reads: String){
+    constructor(): this("","","","", "", "","","","","",""){
 
     }
 }

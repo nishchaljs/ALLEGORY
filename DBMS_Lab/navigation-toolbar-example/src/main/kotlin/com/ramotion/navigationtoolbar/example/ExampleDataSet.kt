@@ -34,9 +34,9 @@ interface ViewPagerDataSet {
 }
 
 class ExampleDataSet {
-    private val headerBackgrounds = intArrayOf(R.drawable.card_1_background, R.drawable.card_2_background, R.drawable.card_3_background, R.drawable.card_4_background, R.drawable.card_3_background).toTypedArray()
-    private val headerGradients = intArrayOf(R.drawable.card_1_gradient, R.drawable.card_2_gradient, R.drawable.card_3_gradient, R.drawable.card_4_gradient, R.drawable.card_1_gradient).toTypedArray()
-    private val headerTitles = arrayOf("STORY", "POEM", "ALL", "TOP RATED","MOST RECENT")
+    private val headerBackgrounds = intArrayOf(R.drawable.card_1_background, R.drawable.card_2_background, R.drawable.card_3_background,R.drawable.card_1_background, R.drawable.card_4_background, R.drawable.card_2_background, R.drawable.card_3_background).toTypedArray()
+    private val headerGradients = intArrayOf(R.drawable.card_1_gradient, R.drawable.card_2_gradient, R.drawable.card_3_gradient,R.drawable.card_1_gradient, R.drawable.card_4_gradient, R.drawable.card_2_gradient, R.drawable.card_3_gradient).toTypedArray()
+    private val headerTitles = arrayOf("STORY", "POEM", "ALL",  "TOP RATED STORY","MOST RECENT STORY","TOP RATED POEM","MOST RECENT POEM")
 
     private val requests = arrayOf("3","4","5","6","1","2","3","4","5")
     //private val avatars = intArrayOf(R.drawable.aaron_bradley, R.drawable.barry_allen, R.drawable.bella_holmes, R.drawable.caroline_shaw, R.drawable.connor_graham, R.drawable.deann_hunt, R.drawable.ella_cole, R.drawable.jayden_shaw, R.drawable.jerry_carrol, R.drawable.lena_lucas, R.drawable.leonrd_kim, R.drawable.marc_baker, R.drawable.marjorie_ellis, R.drawable.mattew_jordan, R.drawable.ross_rodriguez, R.drawable.tina_caldwell, R.drawable.wallace_sutton)

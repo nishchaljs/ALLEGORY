@@ -3,6 +3,7 @@ package com.ramotion.navigationtoolbar.example
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.TextView
@@ -21,6 +22,18 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
+import com.squareup.okhttp.Call
+import com.squareup.okhttp.Callback
+import com.squareup.okhttp.OkHttpClient
+import com.squareup.okhttp.Request
+import okhttp3.Response
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.IOException
+import java.lang.Thread.sleep
+import java.util.*
+import java.util.Collections.list
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +52,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mMessageReference: DatabaseReference
     lateinit  var publist: MutableList<publicationModel>
     private val auth: FirebaseAuth? = null
+    private val client = OkHttpClient()
+
 
 
 
@@ -50,7 +65,8 @@ class MainActivity : AppCompatActivity() {
         var auth = FirebaseAuth.getInstance()
         if (auth.currentUser != null) {
             startActivity(Intent(this, login_activity::class.java))
-            finish()
+            finishAffinity()
+
         }
         setContentView(R.layout.activity_login)
 
@@ -73,6 +89,7 @@ class MainActivity : AppCompatActivity() {
                             progressDialog?.dismiss()
                             Toast.makeText(this@MainActivity, "Welcome USer", Toast.LENGTH_SHORT).show()
                             startActivity(Intent(this@MainActivity,login_activity::class.java))
+                            finishAffinity()
                         } else {
                             progressDialog?.dismiss()
                             // If sign in fails, display a message to the user.
@@ -89,7 +106,29 @@ class MainActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this)
         google.setOnClickListener {
 
-            signIn()
+            var auth = Firebase.auth
+            progressDialog?.setMessage("Verificating...")
+            progressDialog?.show()
+            auth.signInAnonymously()
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            val user = auth.currentUser
+                            progressDialog?.dismiss()
+                            Toast.makeText(this@MainActivity, "Welcome USer", Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this@MainActivity,login_activity::class.java))
+                            finishAffinity()
+                        } else {
+                            progressDialog?.dismiss()
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(baseContext, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show()
+                        }
+
+                        // ...
+                    }
+
+            //signIn()
         }
         firebaseAuth = FirebaseAuth.getInstance()
 
@@ -128,6 +167,8 @@ class MainActivity : AppCompatActivity() {
 
         })
 
+        run("https://dbmsibm.herokuapp.com/api/allpoems")
+
 //        val db = Firebase.firestore
 //        db.collection("publisher")
 //                .get()
@@ -154,6 +195,8 @@ class MainActivity : AppCompatActivity() {
                 signUser(inEmail, inPassword)
             }
         }
+
+
 
 //        if (! Python.isStarted()) {
 //            Python.start(AndroidPlatform(this))
@@ -222,6 +265,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun run(url: String) {
+        val request = Request.Builder()
+                .url(url)
+                .build()
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(request: Request?, e: IOException?) {println("FAIL AGIAN")}
+
+            override fun onResponse(response: com.squareup.okhttp.Response?) {
+                var r = response?.body()?.string()
+                var obj = JSONArray(r)
+                var q = JSONArray(obj.get(0).toString())[0]
+                println("IBM Data ${q}")
+            }
+        })
+    }
+
 
 
     private fun configureGoogleSignIn() {
@@ -254,6 +313,7 @@ class MainActivity : AppCompatActivity() {
             if (it.isSuccessful) {
 
                 startActivity(Intent(this@MainActivity,login_activity::class.java))
+                finishAffinity()
             } else {
                 Toast.makeText(this, "Google sign in failed:(", Toast.LENGTH_LONG).show()
             }
@@ -298,6 +358,7 @@ class MainActivity : AppCompatActivity() {
                 progressDialog?.dismiss()
                 Toast.makeText(this@MainActivity, "Login Successful", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this@MainActivity,login_activity::class.java))
+                finishAffinity()
             } else {
                 progressDialog?.dismiss()
                 Toast.makeText(this@MainActivity, "Invalid email or password", Toast.LENGTH_SHORT).show()

@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="310dp"
     android:orientation="vertical"
-    android:paddingTop="@dimen/intrinsic_padding"
-    android:id="@+id/card">
+    android:id="@+id/card"
+    android:paddingBottom="2sp"
+    >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
@@ -14,21 +15,20 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         card_view:cardBackgroundColor="@android:color/white"
-        card_view:cardCornerRadius="2dp"
-        card_view:cardElevation="@dimen/post_card_elevation"
-        card_view:cardUseCompatPadding="true">
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/bgContentTop">
 
             <ImageView
                 android:id="@+id/postImageView"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/post_list_item_image_height"
+                android:layout_height="220dp"
                 android:layout_marginBottom="@dimen/intrinsic_padding"
                 android:scaleType="centerCrop"
-                android:src="@drawable/card_1_background"/>
+                android:src="@drawable/background"/>
 
             <ImageView
                 android:id="@+id/authorImageView"
@@ -52,22 +52,22 @@
                 android:layout_toStartOf="@+id/authorImageView"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Title of the Story"
-                android:textAppearance="@style/TextAppearance.Title" />
+                android:textAppearance="@style/TextAppearance.Title"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/detailsTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="18sp"
                 android:paddingLeft="@dimen/intrinsic_padding"
                 android:paddingRight="@dimen/intrinsic_padding"
                 android:layout_below="@+id/titleTextView"
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@+id/authorImageView"
                 android:ellipsize="end"
-                android:maxLines="2"
-                android:text="1 line description of story, like an Autobiography of xyz..."
+                android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.Second"
+                android:textColor="@color/white"
                 android:layout_alignParentEnd="true" />
 
             <include

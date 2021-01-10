@@ -5,10 +5,10 @@
     android:id="@+id/cell"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    folding-cell:additionalFlipsCount="1"
-    folding-cell:animationDuration="1000"
-    folding-cell:backSideColor="@color/bgBackSideColor"
-    folding-cell:cameraHeight="30">
+    folding-cell:additionalFlipsCount="0"
+    folding-cell:animationDuration="1700"
+    folding-cell:backSideColor="@color/mainTextColor"
+    folding-cell:cameraHeight="100">
 
     <!-- CONTENT (UNFOLDED) LAYOUT (MUST BE AT LEAST 2x times BIGGER than content layout bellow)-->
     <include layout="@layout/cell_content_layout" />

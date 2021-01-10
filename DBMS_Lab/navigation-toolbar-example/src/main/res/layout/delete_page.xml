@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     android:orientation="vertical"
-    tools:context=".pager.Profile">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,12 +32,12 @@
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1.4" />
+            android:layout_weight="1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Upload Publication"
+            android:text="Delete Publication"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -113,16 +113,17 @@
                         android:layout_weight="1" />
                 </LinearLayout>
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:fontFamily="@font/proximanovaregular"
-                        android:hint="Name"
-                        android:id="@+id/title"
-                        android:textColor="#424242"
-                        android:textSize="21sp"
-                        android:textStyle="bold" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/proximanovaregular"
+                    android:hint="Name"
+                    android:id="@+id/title"
+                    android:textColor="#424242"
+                    android:textSize="21sp"
+                    android:textStyle="bold"
+                    android:editable="false"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -155,7 +156,7 @@
                         android:text="Poem"
                         android:buttonTint="@color/colorPrimaryDark"
                         android:layout_marginTop="10dp"
-                        android:checked="true"
+                        android:checked="false"
                         android:fontFamily="@font/proximanovaregular"
                         android:textSize="17sp" />
 
@@ -199,7 +200,8 @@
                     android:id="@+id/genre"
                     android:textColor="#424242"
                     android:textSize="21sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:editable="false"/>
 
 
             </LinearLayout>
@@ -245,17 +247,12 @@
                         </LinearLayout>
 
                         <EditText
-                            android:layout_marginTop="10dp"
-                            android:id="@+id/desc"
-                            android:hint="Description"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:fontFamily="@font/proximanovaregular"
-                            android:textColor="#424242"
-                            android:textSize="21sp"
-                            android:textStyle="bold"
-                            />
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/desc"
+                            android:hint="@string/my_desc"
+                            android:editable="false"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -287,11 +284,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/proximanovaregular"
-                            android:hint="Name"
+                            android:hint="Genre"
                             android:id="@+id/author"
                             android:textColor="#424242"
                             android:textSize="21sp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:editable="false"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -321,15 +319,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Edit"
-                            android:visibility="invisible"
-                            android:textColor="#FFCF66"
-                            android:layout_marginEnd="10dp"
-                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -353,13 +342,13 @@
                                 android:padding="10dp"
                                 android:src="@drawable/ic_email_24dp" />
 
-                            <EditText
+                            <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/date"
                                 android:layout_marginLeft="20dp"
                                 android:fontFamily="@font/proximanovaregular"
-                                android:hint="Select Date"
+                                android:text="Select Date"
                                 android:textColor="@color/goodgrey"
                                 android:textSize="15sp" />
                         </LinearLayout>
@@ -401,46 +390,16 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:paddingRight="8dp">
-
-                            <ImageView
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:id="@+id/uploadpdf"
-                                android:background="@drawable/circular_grey_bordersolid"
-                                android:padding="10dp"
-                                android:src="@drawable/paintbrush" />
-
-                            <EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
-                                android:id="@+id/pdfpath"
-                                android:hint="Choose PDF"
-                                android:textSize="15sp"/>
-                        </LinearLayout>
-
-                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/upload"
+                        android:id="@+id/delete"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:background="@color/btnRequest"
+                        android:background="@drawable/duo_shape_rectangled_red"
                         android:padding="10dp"
-                        android:text="UPLOAD"
+                        android:text="DELETE"
                         android:textAlignment="center"
                         android:textColor="@color/mainTextColor"
                         android:textSize="20sp"

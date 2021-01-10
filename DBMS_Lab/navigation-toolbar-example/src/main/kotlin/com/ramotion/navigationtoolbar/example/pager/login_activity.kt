@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.content.ContextCompat
@@ -156,7 +157,7 @@ class login_activity : AppCompatActivity() {
         val headerOverlay = findViewById<FrameLayout>(R.id.header_overlay)
         header.setItemTransformer(HeaderItemTransformer(headerOverlay,
                 titleLeftOffset, lineRightOffset, lineBottomOffset, lineTitleOffset))
-        header.setAdapter(HeaderAdapter(40, dataSet.headerDataSet, headerOverlay))
+        header.setAdapter(HeaderAdapter(7, dataSet.headerDataSet, headerOverlay))
 
         header.addItemChangeListener(object : HeaderLayoutManager.ItemChangeListener {
             override fun onItemChangeStarted(position: Int) {
@@ -201,6 +202,9 @@ class login_activity : AppCompatActivity() {
         toolbar.navigationIcon = drawerArrow
         toolbar.setNavigationOnClickListener {
             if (!isExpanded) {
+                val intent = Intent(this, About::class.java)
+                //intent.putExtra("key", value)
+                startActivity(intent)
                 return@setNavigationOnClickListener
             }
             val anchorPos = header.getAnchorPos()
