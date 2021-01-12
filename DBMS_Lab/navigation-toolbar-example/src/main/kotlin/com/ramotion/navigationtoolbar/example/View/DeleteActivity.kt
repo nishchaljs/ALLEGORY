@@ -1,36 +1,29 @@
-package com.ramotion.navigationtoolbar.example
+package com.ramotion.navigationtoolbar.example.View
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.PersistableBundle
-import android.provider.Settings.Global.getString
-import android.provider.Settings.Secure.getString
-import android.provider.Settings.System.getString
 import android.widget.EditText
 import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.TypedArrayUtils.getString
 import com.google.firebase.auth.FirebaseAuth
-import com.ramotion.navigationtoolbar.example.pager.ItemUser
+import com.ramotion.navigationtoolbar.example.MainActivity
+import com.ramotion.navigationtoolbar.example.R
 import com.squareup.okhttp.Callback
 import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
-import io.grpc.internal.JsonUtil.getString
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
-import org.json.JSONArray
 import java.io.IOException
 
 
-class update : AppCompatActivity() {
+class DeleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.updateactivity)
-        Toast.makeText(this,"Welcome",Toast.LENGTH_SHORT)
+        setContentView(R.layout.delete_page)
 
         val intent = intent
         val pubID = intent.getStringExtra("pubID").toString()
@@ -41,7 +34,7 @@ class update : AppCompatActivity() {
         var author = findViewById<EditText>(R.id.author)
         var radioGroup = findViewById<RadioGroup>(R.id.radioGroup)
         val bundle: Bundle? = intent.extras
-        var up = findViewById<TextView>(R.id.upload)
+        var delete = findViewById<TextView>(R.id.delete)
         val client = OkHttpClient()
         var user = FirebaseAuth.getInstance().currentUser
         var email = user?.email;
@@ -55,30 +48,26 @@ class update : AppCompatActivity() {
 
         suspend fun dosoemthingAll() {
 
-            val des = desc.text.toString()
-           var url =  "https://dbmsibm.herokuapp.com/api/updatepubdesc?typ='$typ'&id='$pubID'&desc='$des'"
-            println("This is url $url")
             val request1 = Request.Builder()
-                    .url(url)
+                    .url("https://dbmsibm.herokuapp.com/api/delpub?typ='$typ'&id='$pubID'")
                     .build()
             client.newCall(request1).enqueue(object : Callback {
                 override fun onFailure(request: Request?, e: IOException?) {
                     println("FAIL AGIAN")
                 }
                 override fun onResponse(response: com.squareup.okhttp.Response?) {
-//                    Toast.makeText(this@update,"" , Toast.LENGTH_SHORT).show()
+
                     mHandler.post {
                         println("Response  ${response?.message()}")
                         if (response?.message().toString() == "OK") {
-                            Toast.makeText(this@update, "Uploaded Successfully", Toast.LENGTH_SHORT).show()
-                            println(response?.message().toString())
+                            Toast.makeText(this@DeleteActivity, "Deleted Successfully", Toast.LENGTH_SHORT).show()
                         }
                         else{
-                            Toast.makeText(this@update, "Upload Failed", Toast.LENGTH_SHORT).show()
-                            println(response?.message().toString())
+                            Toast.makeText(this@DeleteActivity, "Delete Failed: " + response?.message().toString(), Toast.LENGTH_SHORT).show()
+                            println("Failed bcz: " + response?.message().toString())
                         }
                     }
-                    println("Done")
+                    //
                 }
             }
             )
@@ -88,18 +77,18 @@ class update : AppCompatActivity() {
 
 
 
-        up.setOnClickListener{
+        delete.setOnClickListener{
             runBlocking<Unit>{
 
                 val x = async {
                     dosoemthingAll()
                 }
                 x.await()
-                Toast.makeText(baseContext, "Update Success", Toast.LENGTH_SHORT)
+                Toast.makeText(baseContext, "Delete Success", Toast.LENGTH_SHORT)
 
             }
 
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finishAffinity()
         }
 

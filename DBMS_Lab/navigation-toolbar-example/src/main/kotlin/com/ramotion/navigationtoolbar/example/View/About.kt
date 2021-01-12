@@ -1,9 +1,8 @@
-package com.ramotion.navigationtoolbar.example
+package com.ramotion.navigationtoolbar.example.View
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.ramotion.navigationtoolbar.example.R
 
 class About: AppCompatActivity() {
 

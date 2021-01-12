@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.ramotion.navigationtoolbar.HeaderLayout
-import com.ramotion.navigationtoolbar.example.HeaderDataSet
+import com.ramotion.navigationtoolbar.example.Model.HeaderDataSet
 import com.ramotion.navigationtoolbar.example.R
 
 class HeaderAdapter(

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import com.ramotion.foldingcell.FoldingCell
 import com.ramotion.navigationtoolbar.example.R
-import com.ramotion.navigationtoolbar.example.ViewPagerDataSet
+import com.ramotion.navigationtoolbar.example.Model.ViewPagerDataSet
 import java.util.*
 
 

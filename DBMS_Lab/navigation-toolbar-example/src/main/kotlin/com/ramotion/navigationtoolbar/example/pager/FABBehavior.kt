@@ -1,4 +1,4 @@
-package com.ramotion.navigationtoolbar.example
+package com.ramotion.navigationtoolbar.example.pager
 
 import android.content.Context
 import android.util.AttributeSet

@@ -3,7 +3,6 @@ package com.ramotion.navigationtoolbar.example
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.TextView
@@ -22,18 +21,14 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
-import com.squareup.okhttp.Call
+import com.ramotion.navigationtoolbar.example.Model.ExampleDataSet
+import com.ramotion.navigationtoolbar.example.Model.publicationModel
+import com.ramotion.navigationtoolbar.example.View.register_activity
 import com.squareup.okhttp.Callback
 import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
-import okhttp3.Response
 import org.json.JSONArray
-import org.json.JSONObject
 import java.io.IOException
-import java.lang.Thread.sleep
-import java.util.*
-import java.util.Collections.list
-import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -77,6 +72,8 @@ class MainActivity : AppCompatActivity() {
         val google = findViewById<SignInButton>(R.id.ivGoogle)
         val anonymous = findViewById<TextView>(R.id.normalSignIn)
 
+        //Anonymous Sign In
+
         anonymous.setOnClickListener{
             var auth = Firebase.auth
             progressDialog?.setMessage("Verificating...")
@@ -99,6 +96,21 @@ class MainActivity : AppCompatActivity() {
 
                         // ...
                     }
+        }
+
+        //      Register User
+        signup.setOnClickListener{
+            startActivity(Intent(this@MainActivity, register_activity::class.java))
+        }
+
+        // Login User
+        login.setOnClickListener { view ->
+            val inEmail: String = email.getText().toString()
+            val inPassword: String = pwd.getText().toString()
+
+            if (validateInput(inEmail, inPassword)) {
+                signUser(inEmail, inPassword)
+            }
         }
 
 
@@ -169,32 +181,9 @@ class MainActivity : AppCompatActivity() {
 
         run("https://dbmsibm.herokuapp.com/api/allpoems")
 
-//        val db = Firebase.firestore
-//        db.collection("publisher")
-//                .get()
-//                .addOnSuccessListener { result ->
-//                    for (document in result) {
-//                        Log.d("Result", "${document.id} => ${document.data}")
-//                    }
-//                }
-//                .addOnFailureListener { exception ->
-//                    Log.w("Result", "Error getting documents.", exception)
-//                }
 
 
 
-        signup.setOnClickListener{
-            startActivity(Intent(this@MainActivity,register_activity::class.java))
-        }
-
-        login.setOnClickListener { view ->
-            val inEmail: String = email.getText().toString()
-            val inPassword: String = pwd.getText().toString()
-
-            if (validateInput(inEmail, inPassword)) {
-                signUser(inEmail, inPassword)
-            }
-        }
 
 
 

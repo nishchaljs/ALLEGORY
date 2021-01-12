@@ -1,10 +1,12 @@
-package com.ramotion.navigationtoolbar.example
+package com.ramotion.navigationtoolbar.example.View
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 
 import androidx.appcompat.app.AppCompatActivity
+import com.ramotion.navigationtoolbar.example.MainActivity
+import com.ramotion.navigationtoolbar.example.R
 
 class splash: AppCompatActivity() {
     private val SPLASH_TIME_OUT:Long=3000 // 3 sec
@@ -17,7 +19,7 @@ class splash: AppCompatActivity() {
             // This method will be executed once the timer is over
             // Start your app main activity
 
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
 
             // close this activity
             finish()

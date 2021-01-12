@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -18,10 +17,13 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.ktx.Firebase
 import com.ramotion.foldingcell.FoldingCell
 import com.ramotion.navigationtoolbar.example.*
+import com.ramotion.navigationtoolbar.example.Model.PageDataSet
+import com.ramotion.navigationtoolbar.example.Model.publicationModel
+import com.ramotion.navigationtoolbar.example.View.DeleteActivity
+import com.ramotion.navigationtoolbar.example.View.update
 import com.squareup.okhttp.Callback
 import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
-import com.squareup.okhttp.Response
 import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -118,6 +120,7 @@ class ItemUser(view: View, context: Context) : PageItem(view) {
                     var r = response?.body()?.string()
                     var obj = JSONArray(r)
                     for (i in 0 until obj.length()) {
+                        
                         var m = publicationModel()
                         val item = JSONArray(obj.get(i).toString())
                         m.name = item[1].toString()
@@ -133,6 +136,7 @@ class ItemUser(view: View, context: Context) : PageItem(view) {
                         m.reads = item[7].toString()
                         publist.add(m)
                         println("DAta here ${m.name}")
+
                     }
 
         }

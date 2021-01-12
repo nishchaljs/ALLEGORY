@@ -4,11 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.ramotion.navigationtoolbar.example.PageDataSet
+import com.ramotion.navigationtoolbar.example.Model.PageDataSet
 import com.ramotion.navigationtoolbar.example.R
-import java.security.AccessController.getContext
 import java.util.*
 
 

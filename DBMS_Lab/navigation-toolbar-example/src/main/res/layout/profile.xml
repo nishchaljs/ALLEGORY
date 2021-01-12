@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     android:orientation="vertical"
-    tools:context=".pager.Profile">
+    tools:context=".View.Profile">
 
     <LinearLayout
         android:layout_width="match_parent"

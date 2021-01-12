@@ -5,7 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.ramotion.navigationtoolbar.HeaderLayout
-import com.ramotion.navigationtoolbar.example.HeaderDataSet
+import com.ramotion.navigationtoolbar.example.Model.HeaderDataSet
 import com.ramotion.navigationtoolbar.example.R
 
 class HeaderItem(view: View) : HeaderLayout.ViewHolder(view) {

@@ -1,4 +1,4 @@
-package com.ramotion.navigationtoolbar.example
+package com.ramotion.navigationtoolbar.example.View
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -8,6 +8,8 @@ import android.os.Looper
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.ramotion.navigationtoolbar.example.MainActivity
+import com.ramotion.navigationtoolbar.example.R
 import com.squareup.okhttp.Callback
 import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request

@@ -18,7 +18,7 @@
         tools:replace="android:allowBackup">
 
         <activity
-            android:name=".splash"
+            android:name=".View.splash"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -27,13 +27,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"/>
-    <activity android:name=".pager.Profile"/>
-        <activity android:name=".Upload"/>
+    <activity android:name=".View.Profile"/>
+        <activity android:name=".View.Upload"/>
         <activity android:name=".login_activity"/>
-        <activity android:name=".register_activity"/>
-        <activity android:name=".update"/>
-        <activity android:name=".DeleteActivity"/>
-        <activity android:name=".About"/>
+        <activity android:name=".View.register_activity"/>
+        <activity android:name=".View.update"/>
+        <activity android:name=".View.DeleteActivity"/>
+        <activity android:name=".View.About"/>
 
     </application>
 

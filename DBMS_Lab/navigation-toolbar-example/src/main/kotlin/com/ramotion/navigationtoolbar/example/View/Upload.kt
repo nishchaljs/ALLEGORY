@@ -1,4 +1,4 @@
-package com.ramotion.navigationtoolbar.example
+package com.ramotion.navigationtoolbar.example.View
 
 import android.app.DatePickerDialog
 import java.time.LocalDateTime
@@ -17,6 +17,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.ramotion.navigationtoolbar.example.MainActivity
+import com.ramotion.navigationtoolbar.example.Model.publicationModel
+import com.ramotion.navigationtoolbar.example.R
 import com.squareup.okhttp.Callback
 import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
@@ -101,7 +104,7 @@ class Upload: AppCompatActivity() {
                 val intSelectButton: Int = radioGroup!!.checkedRadioButtonId
                 val radioButton = findViewById<RadioButton>(intSelectButton)
                 val pub = publicationModel(pubID!!, title.text.toString(), author.text.toString(),
-                        radioButton.text.toString(), genre.text.toString(), desc.text.toString(), "story1", email.toString(),time.toString(),date.toString(),12.toString())
+                        radioButton.text.toString(), genre.text.toString(), desc.text.toString(), "story1", email.toString(), time.toString(), date.toString(), 12.toString())
                 var typ = "story"
                 if (pub.type == "Story") {
                     typ = "story"

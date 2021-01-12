@@ -1,9 +1,8 @@
-package com.ramotion.navigationtoolbar.example
+package com.ramotion.navigationtoolbar.example.Model
 
-import android.util.Log
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.ramotion.navigationtoolbar.example.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -34,8 +33,8 @@ interface ViewPagerDataSet {
 }
 
 class ExampleDataSet {
-    private val headerBackgrounds = intArrayOf(R.drawable.card_1_background, R.drawable.card_2_background, R.drawable.card_3_background,R.drawable.card_1_background, R.drawable.card_4_background, R.drawable.card_2_background, R.drawable.card_3_background).toTypedArray()
-    private val headerGradients = intArrayOf(R.drawable.card_1_gradient, R.drawable.card_2_gradient, R.drawable.card_3_gradient,R.drawable.card_1_gradient, R.drawable.card_4_gradient, R.drawable.card_2_gradient, R.drawable.card_3_gradient).toTypedArray()
+    private val headerBackgrounds = intArrayOf(R.drawable.card_1_background, R.drawable.card_2_background, R.drawable.card_3_background, R.drawable.card_1_background, R.drawable.card_4_background, R.drawable.card_2_background, R.drawable.card_3_background).toTypedArray()
+    private val headerGradients = intArrayOf(R.drawable.card_1_gradient, R.drawable.card_2_gradient, R.drawable.card_3_gradient, R.drawable.card_1_gradient, R.drawable.card_4_gradient, R.drawable.card_2_gradient, R.drawable.card_3_gradient).toTypedArray()
     private val headerTitles = arrayOf("STORY", "POEM", "ALL",  "TOP RATED STORY","MOST RECENT STORY","TOP RATED POEM","MOST RECENT POEM")
 
     private val requests = arrayOf("3","4","5","6","1","2","3","4","5")
@@ -70,9 +69,9 @@ class ExampleDataSet {
     internal val headerDataSet = object : HeaderDataSet {
         override fun getItemData(pos: Int) =
                 HeaderDataSet.ItemData(
-                    gradient = headerGradients[pos % headerGradients.size],
-                    background = headerBackgrounds[pos % headerBackgrounds.size],
-                    title = headerTitles[pos % headerTitles.size])
+                        gradient = headerGradients[pos % headerGradients.size],
+                        background = headerBackgrounds[pos % headerBackgrounds.size],
+                        title = headerTitles[pos % headerTitles.size])
     }
 
 
