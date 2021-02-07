@@ -50,7 +50,7 @@ class update : AppCompatActivity() {
         suspend fun dosoemthingAll() {
 
             val des = desc.text.toString()
-           var url =  "https://dbmsibm.herokuapp.com/api/updatepubdesc?typ='$typ'&id='$pubID'&desc='$des'"
+           var url =  "https://dbmsibm.herokuapp.com/api/updatepubdesc?typ='" + typ.toString() + "'&id='" + pubID.toString() + "'&desc='" + des.toString() + "'"
             println("This is url $url")
             val request1 = Request.Builder()
                     .url(url)
@@ -64,11 +64,11 @@ class update : AppCompatActivity() {
                     mHandler.post {
                         println("Response  ${response?.message()}")
                         if (response?.message().toString() == "OK") {
-                            Toast.makeText(this@update, "Uploaded Successfully", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@update, "Updated Successfully", Toast.LENGTH_SHORT).show()
                             println(response?.message().toString())
                         }
                         else{
-                            Toast.makeText(this@update, "Upload Failed", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@update, "Update Failed", Toast.LENGTH_SHORT).show()
                             println(response?.message().toString())
                         }
                     }

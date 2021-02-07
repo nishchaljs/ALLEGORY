@@ -320,14 +320,26 @@ class MainActivity : AppCompatActivity() {
         val login = findViewById<Button>(R.id.btnSignIn)
         val email = findViewById<AutoCompleteTextView>(R.id.atvEmailLog)
         val pwd = findViewById<AutoCompleteTextView>(R.id.atvPasswordLog)
+        val emailPattern= "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        val pwdPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~\$^+=<>]).{8,20}\$"
         if (inemail.isEmpty()) {
             email.setError("Email field is empty.")
             return false
         }
+        if (!inemail.matches(emailPattern.toRegex()))
+        {
+            email.setError("Email should be of the format xxx@yy.zz")
+        }
+
         if (inpassword.isEmpty()) {
             pwd.setError("Password is empty.")
             return false
         }
+//        if (!inpassword.matches(pwdPattern.toRegex())) {
+//            pwd.setError("Password should contain at least one Capital letter and a special symbol")
+//            return false
+//        }
+
         return true
     }
 

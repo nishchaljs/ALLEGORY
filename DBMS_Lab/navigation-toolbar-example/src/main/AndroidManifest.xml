@@ -34,6 +34,7 @@
         <activity android:name=".View.update"/>
         <activity android:name=".View.DeleteActivity"/>
         <activity android:name=".View.About"/>
+        <activity android:name=".View.search_activity"/>
 
     </application>
 

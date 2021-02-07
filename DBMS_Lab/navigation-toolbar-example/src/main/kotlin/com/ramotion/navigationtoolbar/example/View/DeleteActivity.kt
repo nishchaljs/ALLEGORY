@@ -49,14 +49,13 @@ class DeleteActivity : AppCompatActivity() {
         suspend fun dosoemthingAll() {
 
             val request1 = Request.Builder()
-                    .url("https://dbmsibm.herokuapp.com/api/delpub?typ='$typ'&id='$pubID'")
+                    .url("https://dbmsibm.herokuapp.com/api/delpub?id='" + pubID.toString() + "'&typ='" + typ.toString() + "'")
                     .build()
             client.newCall(request1).enqueue(object : Callback {
                 override fun onFailure(request: Request?, e: IOException?) {
                     println("FAIL AGIAN")
                 }
                 override fun onResponse(response: com.squareup.okhttp.Response?) {
-
                     mHandler.post {
                         println("Response  ${response?.message()}")
                         if (response?.message().toString() == "OK") {

@@ -92,16 +92,34 @@ class register_activity : AppCompatActivity() {
 
 
     private fun validateInput(inName: String, inPw: String, inEmail: String): Boolean {
+        val emailPattern= "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        val pwdPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~\$^+=<>]).{8,20}\$"
+
         if (inName.isEmpty()) {
             username!!.error = "Username is empty."
             return false
         }
+        if(inName.length < 3){
+            username!!.error = "Username should be minimum 3 characters"
+            return false
+        }
+
         if (inPw.isEmpty()) {
             password!!.error = "Password is empty."
             return false
         }
         if (inEmail.isEmpty()) {
             email!!.error = "Email is empty."
+            return false
+        }
+        if (!inEmail.matches(emailPattern.toRegex()))
+        {
+            email!!.error = "Email should be of the format xxx@yy.zz"
+            return false
+        }
+
+        if (!inPw.matches(pwdPattern.toRegex())) {
+            password!!.error = "Password should contain at least one Capital letter and a special symbol"
             return false
         }
         return true

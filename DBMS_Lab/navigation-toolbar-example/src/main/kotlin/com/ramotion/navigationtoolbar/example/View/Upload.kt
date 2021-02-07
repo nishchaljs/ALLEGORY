@@ -165,27 +165,27 @@ class Upload: AppCompatActivity() {
     }
 
     private fun validateInput(inTitle: String, inDesc: String, inGenre: String, inAuthor: String, inDate: String, inPdfpath: String): Boolean {
-        if (inTitle.isEmpty()) {
-            title!!.error = "Title is empty."
+        if (inTitle.isEmpty() || inTitle.length < 3) {
+            title!!.error = "Title should be minimum 3 char"
             return false
         }
-        if (inDesc.isEmpty()) {
-            desc!!.error = "Description is empty."
+        if (inDesc.isEmpty() || inDesc.length < 10) {
+            desc!!.error = "Description should be minimum 10 char"
             return false
         }
-        if (inGenre.isEmpty()) {
-            genre!!.error = "Genre is empty."
+        if (inGenre.isEmpty() || inGenre.length < 3) {
+            genre!!.error = "Genre should be minimum 3 char"
             return false
         }
-        if (inAuthor.isEmpty()) {
-            author!!.error = "Author is empty."
+        if (inAuthor.isEmpty() || inAuthor.length < 3) {
+            author!!.error = "Author should be minimum 3 char"
             return false
         }
-        if (inDate.isEmpty()) {
-            eText!!.error = "Date is empty."
+        if (inDate.isEmpty() || inDate.length < 3) {
+            eText!!.error = "Date should be minimum 3 char"
             return false
         }
-        if (inPdfpath.isEmpty()) {
+        if (inPdfpath.isEmpty() || inPdfpath.length < 3 ) {
             tvAttachment!!.error = "PDF Not Uploaded."
             return false
         }

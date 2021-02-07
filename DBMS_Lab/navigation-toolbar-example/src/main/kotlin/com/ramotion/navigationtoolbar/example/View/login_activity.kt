@@ -29,6 +29,7 @@ import com.ramotion.navigationtoolbar.example.header.HeaderAdapter
 import com.ramotion.navigationtoolbar.example.header.HeaderItemTransformer
 import com.ramotion.navigationtoolbar.example.View.Profile
 import com.ramotion.navigationtoolbar.example.View.Upload
+import com.ramotion.navigationtoolbar.example.View.search_activity
 import com.ramotion.navigationtoolbar.example.pager.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.ceil
@@ -51,23 +52,12 @@ class login_activity : AppCompatActivity() {
 
         val db = Firebase.firestore;
 
-//        suspend fun docx():Int {
-//            db.collection("publication")
-//                    .get()
-//                    .addOnSuccessListener { result ->
-//                        itemCount = result.documents.size
-//                        for (document in result) {
-//                            Log.d("Result", "${document.id} => ${document.data}")
-//                        }
-//                    }
-//                    .addOnFailureListener { exception ->
-//                        Log.w("Result", "Error getting documents.", exception)
-//                    }
-//                    .await()
-//
-//            println("Item Count $itemCount")
-//            return itemCount
-//        }
+        search.setOnClickListener { view ->
+            val intent = Intent(this, search_activity::class.java)
+            startActivity(intent)
+        }
+
+
 
         fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

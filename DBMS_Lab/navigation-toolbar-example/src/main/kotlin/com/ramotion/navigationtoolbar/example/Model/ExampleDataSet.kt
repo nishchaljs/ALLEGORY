@@ -17,6 +17,14 @@ interface HeaderDataSet {
     fun getItemData(pos: Int): ItemData
 }
 
+interface SearchDataSet {
+    data class ItemData(val gradient: Int,
+                        val background: Int,
+                        val title: String)
+
+    fun getItemData(pos: Int): ItemData
+}
+
 interface PageDataSet {
 
     data class ItemData(//val avatar: Int,
@@ -69,6 +77,14 @@ class ExampleDataSet {
     internal val headerDataSet = object : HeaderDataSet {
         override fun getItemData(pos: Int) =
                 HeaderDataSet.ItemData(
+                        gradient = headerGradients[pos % headerGradients.size],
+                        background = headerBackgrounds[pos % headerBackgrounds.size],
+                        title = headerTitles[pos % headerTitles.size])
+    }
+
+    internal val searchDataSet = object : SearchDataSet {
+        override fun getItemData(pos: Int) =
+                SearchDataSet.ItemData(
                         gradient = headerGradients[pos % headerGradients.size],
                         background = headerBackgrounds[pos % headerBackgrounds.size],
                         title = headerTitles[pos % headerTitles.size])
