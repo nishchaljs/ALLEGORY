@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -11,14 +13,20 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ramotion.navigationtoolbar.example.MainActivity
+import com.ramotion.navigationtoolbar.example.Model.LanguageModel
+import com.ramotion.navigationtoolbar.example.Model.LanguageModel.Companion.getLanguageList
 import com.ramotion.navigationtoolbar.example.R
+import com.ramotion.navigationtoolbar.example.pager.languageAdapter
 import com.squareup.okhttp.Callback
 import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
+import kotlinx.android.synthetic.main.profile.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import org.intellij.lang.annotations.Language
 import org.json.JSONArray
 import java.io.IOException
+import java.util.*
 
 
 class Profile: AppCompatActivity() {
@@ -36,9 +44,13 @@ class Profile: AppCompatActivity() {
         val pubid = findViewById<TextView>(R.id.pubid)
         val eml = findViewById<TextView>(R.id.email)
 
+
         var auth = Firebase.auth
         var user = auth.currentUser
         var anon = user?.isAnonymous()
+
+
+ //       setSpinner()
 
         signout.setOnClickListener {
             Firebase.auth.signOut()
@@ -69,6 +81,9 @@ class Profile: AppCompatActivity() {
 
             eml.setText(email)
             pubid.setText(email)
+
+
+
 
 
 
@@ -111,4 +126,33 @@ class Profile: AppCompatActivity() {
 
 
     }
+//
+//    private fun setSpinner() {
+//        val myAdapter = languageAdapter(this, LanguageModel.getLanguageList())
+//        spinner.adapter = myAdapter
+//
+//        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, l: Long) {
+//                val language:LanguageModel = adapterView.adapter.getItem(position) as LanguageModel
+//                if (position != 0) {
+//                    setLocale(language.code)
+//                }
+//            }
+//
+//            override fun onNothingSelected(adapterView: AdapterView<*>) {}
+//        }
+//    }
+//
+//
+//    fun setLocale(lang: String?) {
+//        val myLocale = Locale(lang)
+//        val res = resources
+//        val conf = res.configuration
+//        conf.locale = myLocale
+//        res.updateConfiguration(conf, res.displayMetrics)
+//        startActivity(Intent(this, MainActivity::class.java))
+//        finish()
+//    }
+
+
 }

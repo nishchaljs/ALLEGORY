@@ -531,18 +531,17 @@ class ItemUser(view: View, context: Context) : PageItem(view) {
                 else if(page%7 ==2)
                     dosoemthingAll("https://dbmsibm.herokuapp.com/api/allpoems","https://dbmsibm.herokuapp.com/api/allstories","All")
                 else if(page%7 ==3)
-                    dosoemthing("https://dbmsibm.herokuapp.com/api/toprateds","Top Rated")
+                    dosoemthing("https://dbmsibm.herokuapp.com/api/toprateds","Story")
                 else if(page%7 ==4)
-                    dosoemthing("https://dbmsibm.herokuapp.com/api/mostrecents","Most Recent")
+                    dosoemthing("https://dbmsibm.herokuapp.com/api/mostrecents","Story")
                 else if(page%7 ==5)
-                    dosoemthing("https://dbmsibm.herokuapp.com/api/topratedp","Top Rated")
+                    dosoemthing("https://dbmsibm.herokuapp.com/api/topratedp","Poem")
                 else if(page%7 ==6)
-                    dosoemthing("https://dbmsibm.herokuapp.com/api/mostrecentp","Most Recent")
+                    dosoemthing("https://dbmsibm.herokuapp.com/api/mostrecentp","Poem")
             }
             x.await()
 
         }
-
 
 
 //

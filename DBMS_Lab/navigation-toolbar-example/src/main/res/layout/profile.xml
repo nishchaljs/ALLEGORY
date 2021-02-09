@@ -354,6 +354,16 @@
                 </LinearLayout>
             </LinearLayout>
 
+
+<!--            <Spinner-->
+<!--                android:id="@+id/spinner"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/view"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:background="@drawable/spinner_style"-->
+<!--                />-->
+
             <TextView
                 android:id="@+id/signout"
                 android:layout_width="match_parent"

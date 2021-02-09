@@ -76,6 +76,6 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
     implementation 'com.google.firebase:firebase-database-ktx'
     implementation 'com.squareup.okhttp3:okhttp:3.8.1'
-
+    implementation 'com.github.yesidlazaro:GmailBackground:1.2.0'
     implementation 'com.github.Shashank02051997:FancyAboutPage-Android:2.6'
 }
