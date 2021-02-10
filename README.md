@@ -26,3 +26,15 @@ The package is developed using XML - Java as front end in Android Studio. IBM DB
 * Under build option in the toolbar, select build APK
 * Wait until build is successful
 * Check the build-->generated-->outputs-->apk folder to get the apk
+
+
+## Screenshots of the application:
+
+<div class="row">
+  <kbd>
+<img src="https://github.com/nishchaljs/DBMS_LabProject_2020-21/blob/main/Screenshots/1609279193024.jpg" alt="drawing" width="200"/> 
+<img src="https://github.com/nishchaljs/DBMS_LabProject_2020-21/blob/main/Screenshots/1609279193003.jpg" alt="drawing" width="200"/>
+<img src="https://github.com/nishchaljs/DBMS_LabProject_2020-21/blob/main/Screenshots/1609279192982.jpg" alt="drawing" width="200"/>
+    <img src="https://github.com/nishchaljs/DBMS_LabProject_2020-21/blob/main/Screenshots/1609279192896.jpg" alt="drawing" width="200"/>
+  <kbd/>
+   </div>
