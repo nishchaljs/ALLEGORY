@@ -145,7 +145,6 @@ class Upload: AppCompatActivity() {
                                 println("Response  ${response?.message()}")
                                 if (response?.message().toString() == "OK") {
                                     Toast.makeText(this@Upload, "Uploaded Successfully", Toast.LENGTH_SHORT).show()
-
                                 }
                                 else{
                                     Toast.makeText(this@Upload, "Upload Failed", Toast.LENGTH_SHORT).show()
@@ -155,12 +154,14 @@ class Upload: AppCompatActivity() {
                     })
                 }
 
+                runBlocking {
+                    sendTestEmail(author.text.toString(), title.text.toString(), email.toString())
+
+                }
+
             }
 
-            runBlocking {
-                sendTestEmail(author.text.toString(), title.text.toString())
 
-            }
 
         }
 
@@ -214,13 +215,13 @@ class Upload: AppCompatActivity() {
 
         return true
     }
-    private fun sendTestEmail(name:String, title:String) {
+    private fun sendTestEmail(name:String, title:String, email: String) {
 
         try {
             BackgroundMail.newBuilder(this)
                     .withUsername("cheat.devp@gmail.com")
                     .withPassword("qwerty@123456")
-                    .withMailto("nishchaljs@gmail.com")
+                    .withMailto(email)
                     .withSubject("New Publication Uploaded!!")
                     .withBody("Dear $name,\n\n The Publication titled, \"$title\" has been published on Allegory Successfully!\n\nRegards Devp Team, Allegory")
                     .withOnSuccessCallback(OnSuccessCallback {
@@ -231,7 +232,6 @@ class Upload: AppCompatActivity() {
                     })
                     .withOnFailCallback(OnFailCallback {
                         //do some magic
-
                         startActivity(Intent(this@Upload, MainActivity::class.java))
                         finishAffinity()
                     })
