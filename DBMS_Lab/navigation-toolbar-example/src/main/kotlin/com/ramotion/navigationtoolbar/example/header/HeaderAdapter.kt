@@ -45,7 +45,7 @@ class HeaderAdapter(
     private fun getNextOverlayLine(): View? {
         for (i in 0 until linesLayout.childCount) {
             val child = linesLayout.getChildAt(i)
-            if (child.getTag() == null) {
+            if (child.tag == null) {
                 return child
             }
         }

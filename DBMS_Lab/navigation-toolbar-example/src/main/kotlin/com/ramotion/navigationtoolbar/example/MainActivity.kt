@@ -105,8 +105,8 @@ class MainActivity : AppCompatActivity() {
 
         // Login User
         login.setOnClickListener { view ->
-            val inEmail: String = email.getText().toString()
-            val inPassword: String = pwd.getText().toString()
+            val inEmail: String = email.text.toString()
+            val inPassword: String = pwd.text.toString()
 
             if (validateInput(inEmail, inPassword)) {
                 signUser(inEmail, inPassword)
@@ -155,11 +155,6 @@ class MainActivity : AppCompatActivity() {
 //get reference to the "users" node
 
         mDatabase = FirebaseDatabase.getInstance().getReference("publication")
-//        val pubID= mDatabase.push().key
- //       val pub = publicationModel( pubID!!,"Story of a young boy","Mr Young", "Story")
-//         mDatabase.child(pubID).setValue(pub).addOnCompleteListener{
-//             println("Pub created")
-//         }
        mMessageReference = FirebaseDatabase.getInstance().getReference("publication")
        publist = mutableListOf()
         mMessageReference.addValueEventListener(object : ValueEventListener{
@@ -180,77 +175,6 @@ class MainActivity : AppCompatActivity() {
         })
 
         run("https://dbmsibm.herokuapp.com/api/allpoems")
-
-
-
-
-
-
-
-//        if (! Python.isStarted()) {
-//            Python.start(AndroidPlatform(this))
-//        }
-//
-//        val py = Python.getInstance()
-//        val module = py.getModule("db")
-//        println("Outside try")
-//
-//        try {
-//            println("Inside try")
-//            val bytes = module.callAttr("plot").toJava(ByteArray::class.java)
-//            print("output is here $bytes")
-//        } catch (e: PyException) {
-//            println("Error is here haha $e")
-//           // Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
-//        }
-        //Creating the connection
-
-        //Creating the connection
-//        val url = "jdbc:db2://dashdb-txn-sbox-yp-lon02-07.services.eu-gb.bluemix.net:50000/BLUDB:retrieveMessagesFromServerOnGetMessage=true;"
-//        val user = "ttm65995"
-//        val pass = "nmvs48nv5b@8mp6h"
-//        var con: Connection? = null
-//
-//        val purl = "jdbc:postgresql://localhost/postgres"
-//        val puser = "postgres"
-//        val password = "qwerty123456"
-//
-//        var conn: Connection? = null
-//        try {
-//            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-//            StrictMode.setThreadPolicy(policy)
-//            Class.forName("org.postgresql.Driver");
-//            conn = DriverManager.getConnection(purl, puser, password)
-//            println("Connected to the PostgreSQL server successfully.")
-//        } catch (e: SQLException) {
-//            System.out.println(e)
-//            println("PSQL FLOP SHOW.")
-//        }
-//        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-//        StrictMode.setThreadPolicy(policy)
-//
-//        try {
-//            //DriverManager.registerDriver(com.ibm.db2.app);
-//
-//            Class.forName("com.ibm.db2.jcc.DB2Driver")
-//
-//            //Reference to connection interface
-//            con = DriverManager.getConnection(url, user, pass)
-//            val st: Statement = con.createStatement()
-//            val sql = "SELECT ADMIN_NAME FROM ADMIN"
-//            val rs: ResultSet = st.executeQuery(sql)
-//            //            int m = st.executeUpdate(sql);
-//            while (rs.next()) {
-//                val empNo: String = rs.getString(1)
-//                println("Employee name = $empNo")
-//            }
-//            println("Values : $rs")
-//            con.close()
-//        } catch (ex: Exception) {
-//            println("Not working")
-//            System.err.println(ex)
-//        }
-
 
     }
 
@@ -323,22 +247,18 @@ class MainActivity : AppCompatActivity() {
         val emailPattern= "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
         val pwdPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~\$^+=<>]).{8,20}\$"
         if (inemail.isEmpty()) {
-            email.setError("Email field is empty.")
+            email.error = "Email field is empty."
             return false
         }
         if (!inemail.matches(emailPattern.toRegex()))
         {
-            email.setError("Email should be of the format xxx@yy.zz")
+            email.error = "Email should be of the format xxx@yy.zz"
         }
 
         if (inpassword.isEmpty()) {
-            pwd.setError("Password is empty.")
+            pwd.error = "Password is empty."
             return false
         }
-//        if (!inpassword.matches(pwdPattern.toRegex())) {
-//            pwd.setError("Password should contain at least one Capital letter and a special symbol")
-//            return false
-//        }
 
         return true
     }

@@ -1,7 +1,6 @@
 package com.ramotion.navigationtoolbar.example.View
 
 import android.app.ProgressDialog
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -9,14 +8,11 @@ import android.os.Looper
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
 import com.ramotion.foldingcell.FoldingCell
-import com.ramotion.navigationtoolbar.example.FoldingCellListAdapter
-import com.ramotion.navigationtoolbar.example.Item
 import com.ramotion.navigationtoolbar.example.Model.ExampleDataSet
 import com.ramotion.navigationtoolbar.example.Model.publicationModel
-
 import com.ramotion.navigationtoolbar.example.R
+import com.ramotion.navigationtoolbar.example.pager.FoldingCellListAdapter
 import com.squareup.okhttp.Callback
 import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
@@ -26,19 +22,16 @@ import kotlinx.coroutines.runBlocking
 import org.json.JSONArray
 import java.io.IOException
 
-import java.util.*
-import kotlin.collections.ArrayList
-
 class search_activity: AppCompatActivity() {
     private var itemCount = 40
     private val dataSet = ExampleDataSet()
     val names: ArrayList<String> = ArrayList()
     private var progressDialog: ProgressDialog? = null
     val client = OkHttpClient()
-    var mHandler = Handler(Looper.getMainLooper());
+    var mHandler = Handler(Looper.getMainLooper())
+
     // prepare elements to display
     val items: ArrayList<publicationModel> = ArrayList()
-
 
 
     suspend fun dosoemthingAll(url: String) {
@@ -155,7 +148,7 @@ class search_activity: AppCompatActivity() {
         }
 
         val autoadapter: ArrayAdapter<String> = ArrayAdapter<String>(this, android.R.layout.select_dialog_item, names)
-        val actv = findViewById(R.id.searchView) as AutoCompleteTextView
+        val actv = findViewById<AutoCompleteTextView>(R.id.searchView)
         actv.threshold = 1 //will start working from first character
         actv.setAdapter(autoadapter) //setting the adapter data into the AutoCompleteTextView
         actv.setTextColor(Color.RED)

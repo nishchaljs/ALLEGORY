@@ -15,12 +15,10 @@ import com.squareup.okhttp.OkHttpClient
 import com.squareup.okhttp.Request
 import java.io.IOException
 
-//import com.google.firebase.database.DatabaseReference
-//import com.google.firebase.database.FirebaseDatabase
 
 
 class register_activity : AppCompatActivity() {
-    var mHandler =  Handler(Looper.getMainLooper());
+    var mHandler = Handler(Looper.getMainLooper())
     private val client = OkHttpClient()
     private var logo: ImageView? = null
     private var joinus: ImageView? = null

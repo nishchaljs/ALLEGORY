@@ -16,9 +16,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.ktx.Firebase
 import com.ramotion.foldingcell.FoldingCell
-import com.ramotion.navigationtoolbar.example.*
 import com.ramotion.navigationtoolbar.example.Model.PageDataSet
 import com.ramotion.navigationtoolbar.example.Model.publicationModel
+import com.ramotion.navigationtoolbar.example.R
 import com.ramotion.navigationtoolbar.example.View.DeleteActivity
 import com.ramotion.navigationtoolbar.example.View.update
 import com.squareup.okhttp.Callback
@@ -30,6 +30,7 @@ import kotlinx.coroutines.runBlocking
 import org.json.JSONArray
 import java.io.IOException
 import java.util.*
+import java.util.Collections.shuffle
 
 
 sealed class PageItem(view: View) : RecyclerView.ViewHolder(view) {
@@ -37,7 +38,7 @@ sealed class PageItem(view: View) : RecyclerView.ViewHolder(view) {
 }
 
 class ItemUser(view: View, context: Context) : PageItem(view) {
-    //private val avatar = view.findViewById<ImageView>(R.id.avatar)
+
 
     private val unfoldedIndexes = HashSet<Int>()
     var publist: MutableList<publicationModel> = mutableListOf()
@@ -86,26 +87,26 @@ class ItemUser(view: View, context: Context) : PageItem(view) {
     fun setContent(content: PageDataSet.ItemData, position: Int, page:Int, context: Context) {
         var auth = Firebase.auth
         var user = auth.currentUser
-        var anon = user?.isAnonymous()
+        var anon = user?.isAnonymous
         lateinit var mDatabase: DatabaseReference
         lateinit var mMessageReference: DatabaseReference
-        var mHandler =  Handler(Looper.getMainLooper());
+        var mHandler = Handler(Looper.getMainLooper())
         var usr = FirebaseAuth.getInstance().currentUser
-        var email = usr?.email;
-        var im_s = arrayOf("story1","story2","story3","story4","poem1","poem2","poem3","pic1","pic2","pic3","pic4","pic5","pic6","pic7")
-        var im_auth = arrayOf("aaron_bradley","barry_allen","bella_holmes","caroline_shaw",
-                "connor_graham","deann_hunt","ella_cole","jayden_shaw","jerry_carrol", "lena_lucas","leonrd_kim","marc_baker","marjorie_ellis", "mattew_jordan")
+        var email = usr?.email
+        var im_s = arrayOf("story1", "story2", "story3", "story4", "poem1", "poem2", "poem3", "pic1", "pic2", "pic3", "pic4", "pic5", "pic6", "pic7")
+        var im_auth = arrayOf("aaron_bradley", "barry_allen", "bella_holmes", "caroline_shaw",
+                "connor_graham", "deann_hunt", "ella_cole", "jayden_shaw", "jerry_carrol", "lena_lucas", "leonrd_kim", "marc_baker", "marjorie_ellis", "mattew_jordan")
 
-        im_s.shuffle()
-        im_auth.shuffle()
+        shuffle(im_s.toMutableList())
+        shuffle(im_auth.toMutableList())
 
 
-            Update.visibility =  View.GONE
-            delete.visibility = View.GONE
-            blank1.visibility = View.VISIBLE
-            blank2.visibility = View.VISIBLE
+        Update.visibility = View.GONE
+        delete.visibility = View.GONE
+        blank1.visibility = View.VISIBLE
+        blank2.visibility = View.VISIBLE
 
-        suspend fun dosoemthingAll(url1:String,url2:String, typ:String){
+        suspend fun dosoemthingAll(url1: String, url2: String, typ: String) {
 
             val request1 = Request.Builder()
                     .url(url1)
@@ -543,190 +544,6 @@ class ItemUser(view: View, context: Context) : PageItem(view) {
 
         }
 
-
-//
-//        mMessageReference = FirebaseDatabase.getInstance().getReference("publication")
-//
-//        mMessageReference.addValueEventListener(object : ValueEventListener {
-//            override fun onCancelled(error: DatabaseError) {
-//                TODO("Not yet implemented")
-//            }
-//
-//
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//
-//                if(snapshot.exists()){
-//                    for(h in snapshot.children){
-//                        val data = h.getValue(publicationModel::class.java)
-//                        publist.add(data!!)
-//                    }
-//
-//                    println("Publist size after ${publist.size}")
-//
-//                    if(page%5>2){
-//                        publist.shuffle()
-//                    }
-//
-//
-//
-//
-//
-//                    if(publist[position%publist.size].type == "Poem"){
-//                        read.setOnClickListener {
-//
-//                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://static1.squarespace.com/static/51f912e6e4b0cc5aa449f476/t/58502a43b8a79bf9d5651cdd/1481648710707/Poetry+for+Perseverance.pdf")))
-//                        }
-//
-//                    }
-//                    else{
-//                        read.setOnClickListener {
-//
-//                            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://shortstorylines.com/wp-content/uploads/2020/01/the-boy-who-cried-wolf-pdf.pdf")))
-//                        }
-//                    }
-//
-//                    if(page%5==0){
-//                             if(publist[position%publist.size].type == "Story")    {
-//
-//                                 author.text= publist[position%publist.size].author
-//                                 name.text= publist[position%publist.size].name
-//                                 name2.text= publist[position%publist.size].name
-//                                 type.text= publist[position%publist.size].type
-//                                 desc.text= publist[position%publist.size].desc
-//                                 desc2.text= publist[position%publist.size].desc
-//                                 genre.text= publist[position%publist.size].genre
-//
-//                                 // Display an image into image view from assets folder
-//                                 val id = context.resources.getIdentifier(publist[position%publist.size].img, "drawable", context.packageName)
-//                                 img.setImageResource(id)
-//
-//
-//                                 Update.setOnClickListener{
-//                                     context.startActivity(Intent(context, update::class.java))
-////                                             .putExtra("ItemData",public(publist[position%publist.size].name,
-////                                             publist[position%publist.size].author, publist[position%publist.size].desc,publist[position%publist.size].type,publist[position%publist.size].genre )))
-//
-//                                 }
-//
-//                             }
-//                        else
-//                             {
-//                                 card.visibility = View.GONE
-//                                 cell.visibility=View.GONE
-//
-//                             }
-//                    }
-//                    else if(page%5==1){
-//
-//                        if(publist[position%publist.size].type == "Poem"){
-//                            author.text= publist[position%publist.size].author
-//                            name.text= publist[position%publist.size].name
-//                            name2.text= publist[position%publist.size].name
-//                            type.text= publist[position%publist.size].type
-//                            desc.text= publist[position%publist.size].desc
-//                            desc2.text= publist[position%publist.size].desc
-//                            genre.text= publist[position%publist.size].genre
-//
-//                            val id = context.resources.getIdentifier(publist[position%publist.size].img, "drawable", context.packageName)
-//                            img.setImageResource(id)
-//
-//                            Update.setOnClickListener{
-//                                context.startActivity(Intent(context, update::class.java))
-////                                             .putExtra("ItemData",public(publist[position%publist.size].name,
-////                                             publist[position%publist.size].author, publist[position%publist.size].desc,publist[position%publist.size].type,publist[position%publist.size].genre )))
-//
-//                            }
-//                        }
-//                        else{
-//                            card.visibility = View.GONE
-//                            cell.visibility=View.GONE
-//                        }
-//                    }
-//                    else if(page%5==2){
-//                        author.text= publist[position%publist.size].author
-//                        name.text= publist[position%publist.size].name
-//                        name2.text= publist[position%publist.size].name
-//                        type.text= publist[position%publist.size].type
-//                        desc.text= publist[position%publist.size].desc
-//                        desc2.text= publist[position%publist.size].desc
-//                        genre.text= publist[position%publist.size].genre
-//
-//                        val id = context.resources.getIdentifier(publist[position%publist.size].img, "drawable", context.packageName)
-//                        img.setImageResource(id)
-//
-//                        Update.setOnClickListener{
-//                            context.startActivity(Intent(context, update::class.java))
-////                                             .putExtra("ItemData",public(publist[position%publist.size].name,
-////                                             publist[position%publist.size].author, publist[position%publist.size].desc,publist[position%publist.size].type,publist[position%publist.size].genre )))
-//
-//                        }
-//                    }
-//                    else if(page%5==3){
-//                        author.text= publist[position%publist.size].author
-//                        name.text= publist[position%publist.size].name
-//                        name2.text= publist[position%publist.size].name
-//                        type.text= publist[position%publist.size].type
-//                        desc.text= publist[position%publist.size].desc
-//                        desc2.text= publist[position%publist.size].desc
-//                        genre.text= publist[position%publist.size].genre
-//
-//                        val id = context.resources.getIdentifier(publist[position%publist.size].img, "drawable", context.packageName)
-//                        img.setImageResource(id)
-//
-//                        Update.setOnClickListener{
-//                            context.startActivity(Intent(context, update::class.java))
-////                                             .putExtra("ItemData",public(publist[position%publist.size].name,
-////                                             publist[position%publist.size].author, publist[position%publist.size].desc,publist[position%publist.size].type,publist[position%publist.size].genre )))
-//
-//                        }
-//                    }
-//                    else if(page%5==4){
-//                        author.text= publist[position%publist.size].author
-//                        name.text= publist[position%publist.size].name
-//                        name2.text= publist[position%publist.size].name
-//                        type.text= publist[position%publist.size].type
-//                        desc.text= publist[position%publist.size].desc
-//                        desc2.text= publist[position%publist.size].desc
-//                        genre.text= publist[position%publist.size].genre
-//
-//                        val id = context.resources.getIdentifier(publist[position%publist.size].img, "drawable", context.packageName)
-//                        img.setImageResource(id)
-//
-//                        Update.setOnClickListener{
-//                            context.startActivity(Intent(context, update::class.java))
-////                                             .putExtra("ItemData",public(publist[position%publist.size].name,
-////                                             publist[position%publist.size].author, publist[position%publist.size].desc,publist[position%publist.size].type,publist[position%publist.size].genre )))
-//
-//                        }
-//                    }
-//
-//                    else
-//                        return
-//
-//                }
-//            }
-//
-//
-//
-//        })
-
-
-
-  //      author.setText(content.requests)
-
-
-//        price.setText(content.price)
-
-//        time.setText(content.time)
-//        date.setText(content.date)
-//        fromAddress.setText(content.fromAddress)
-//        toAddress.setText(content.toAddress)
-//        requestsCount.setText(content.requests)
-//        pledgePrice.setText(content.pledgePrice)
-      //  status.setText(content.status)
-       // avatar.setImageResource(content.avatar)
-
-       // Glide.with(avatar).load(content.avatar).into(avatar)
     }
 
     // simple methods for register cell state changes
@@ -743,11 +560,3 @@ class ItemUser(view: View, context: Context) : PageItem(view) {
     }
 }
 
-
-//class ItemImage(view: View) : PageItem(view) {
-//    private val imageView = view.findViewById<ImageView>(R.id.page_image)
-//
-//    fun setImage(imgId: Int) {
-//        Glide.with(imageView).load(imgId).into(imageView)
-//    }
-//}

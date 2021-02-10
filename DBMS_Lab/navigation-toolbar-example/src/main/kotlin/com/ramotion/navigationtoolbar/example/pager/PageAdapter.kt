@@ -46,9 +46,6 @@ class PageAdapter(private val count: Int,
         }
     }
 
-//    override fun getItemViewType(position: Int): Int {
-//        return (if (position == 1) ItemType.IMAGE else ItemType.USER).value
-//    }
 
     override fun onViewRecycled(holder: PageItem) {
         super.onViewRecycled(holder)
@@ -76,15 +73,5 @@ class PageAdapter(private val count: Int,
         unfoldedIndexes.add(position)
     }
 
-    fun getDefaultRequestBtnClickListener(): View.OnClickListener? {
-        return defaultRequestBtnClickListener
-    }
 
-    fun setDefaultRequestBtnClickListener(defaultRequestBtnClickListener: View.OnClickListener) {
-        this.defaultRequestBtnClickListener = defaultRequestBtnClickListener
-    }
-//    private fun createItemImage(parent: ViewGroup): ItemImage {
-//        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_image, parent, false)
-//        return ItemImage(view)
-//    }
 }

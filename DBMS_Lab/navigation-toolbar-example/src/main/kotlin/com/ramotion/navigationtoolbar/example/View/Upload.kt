@@ -88,7 +88,7 @@ class Upload: AppCompatActivity() {
 
         eText = findViewById<EditText>(R.id.date)
         val dateimage = findViewById<ImageView>(R.id.dateimage)
-        eText.setInputType(InputType.TYPE_NULL)
+        eText.inputType = InputType.TYPE_NULL
         dateimage.setOnClickListener {
             //start activity intent
             val cldr = Calendar.getInstance()
@@ -111,16 +111,16 @@ class Upload: AppCompatActivity() {
         uploadbutton.setOnClickListener {
             if (validateInput(title.text.toString(), desc.text.toString(), genre.text.toString(), author.text.toString(), eText.text.toString(), tvAttachment.text.toString() )) {
                 var user = FirebaseAuth.getInstance().currentUser
-                var email = user?.email;
+                var email = user?.email
                 var times = LocalDateTime.now()
                 var time = times.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))
                 val date = eText.text.toString()
                 publist = mutableListOf()
                 mDatabase = FirebaseDatabase.getInstance().getReference("publication")
                 val pubID = (0..1000000000).random().toString()
-                val intSelectButton: Int = radioGroup!!.checkedRadioButtonId
+                val intSelectButton: Int = radioGroup.checkedRadioButtonId
                 val radioButton = findViewById<RadioButton>(intSelectButton)
-                val pub = publicationModel(pubID!!, title.text.toString(), author.text.toString(),
+                val pub = publicationModel(pubID, title.text.toString(), author.text.toString(),
                         radioButton.text.toString(), genre.text.toString(), desc.text.toString(), "story1", email.toString(), time.toString(), date.toString(), 12.toString())
                 var typ = "story"
                 if (pub.type == "Story") {
@@ -189,27 +189,27 @@ class Upload: AppCompatActivity() {
 
     private fun validateInput(inTitle: String, inDesc: String, inGenre: String, inAuthor: String, inDate: String, inPdfpath: String): Boolean {
         if (inTitle.isEmpty() || inTitle.length < 3) {
-            title!!.error = "Title should be minimum 3 char"
+            title.error = "Title should be minimum 3 char"
             return false
         }
         if (inDesc.isEmpty() || inDesc.length < 10) {
-            desc!!.error = "Description should be minimum 10 char"
+            desc.error = "Description should be minimum 10 char"
             return false
         }
         if (inGenre.isEmpty() || inGenre.length < 3) {
-            genre!!.error = "Genre should be minimum 3 char"
+            genre.error = "Genre should be minimum 3 char"
             return false
         }
         if (inAuthor.isEmpty() || inAuthor.length < 3) {
-            author!!.error = "Author should be minimum 3 char"
+            author.error = "Author should be minimum 3 char"
             return false
         }
         if (inDate.isEmpty() || inDate.length < 3) {
-            eText!!.error = "Date should be minimum 3 char"
+            eText.error = "Date should be minimum 3 char"
             return false
         }
         if (inPdfpath.isEmpty() || inPdfpath.length < 3 ) {
-            tvAttachment!!.error = "PDF Not Uploaded."
+            tvAttachment.error = "PDF Not Uploaded."
             return false
         }
 

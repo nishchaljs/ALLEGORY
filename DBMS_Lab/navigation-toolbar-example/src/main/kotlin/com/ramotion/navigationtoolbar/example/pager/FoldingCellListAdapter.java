@@ -1,6 +1,5 @@
-package com.ramotion.navigationtoolbar.example;
+package com.ramotion.navigationtoolbar.example.pager;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,17 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.ramotion.foldingcell.FoldingCell;
-import com.ramotion.navigationtoolbar.example.Item;
 import com.ramotion.navigationtoolbar.example.Model.publicationModel;
 import com.ramotion.navigationtoolbar.example.R;
 
 import java.util.HashSet;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-
-import org.w3c.dom.Text;
 
 /**
  * Simple example of ListAdapter for using with Folding Cell
@@ -69,7 +65,7 @@ public class FoldingCellListAdapter extends ArrayAdapter<publicationModel> {
                     c.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://static1.squarespace.com/" +
                             "static/51f912e6e4b0cc5aa449f476/t/58502a43b8a79bf9d5651cdd/1481648710707/Poetry+for+Perseverance.pdf")));
                 }
-            }); ;
+            });
 
             // binding view parts to view holder
             viewHolder.title = cell.findViewById(R.id.titleTextView);

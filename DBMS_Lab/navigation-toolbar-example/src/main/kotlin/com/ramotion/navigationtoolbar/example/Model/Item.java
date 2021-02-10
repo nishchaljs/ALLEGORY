@@ -1,4 +1,4 @@
-package com.ramotion.navigationtoolbar.example;
+package com.ramotion.navigationtoolbar.example.Model;
 
 import android.view.View;
 

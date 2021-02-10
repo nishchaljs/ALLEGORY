@@ -38,8 +38,8 @@ class update : AppCompatActivity() {
         var up = findViewById<TextView>(R.id.upload)
         val client = OkHttpClient()
         var user = FirebaseAuth.getInstance().currentUser
-        var email = user?.email;
-        var mHandler =  Handler(Looper.getMainLooper());
+        var email = user?.email
+        var mHandler =  Handler(Looper.getMainLooper())
         desc.setText(intent.getStringExtra("desc").toString())
         title.setText(intent.getStringExtra("title").toString())
         genre.setText(intent.getStringExtra("genre").toString())

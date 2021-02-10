@@ -1,6 +1,6 @@
 package com.ramotion.navigationtoolbar.example.pager
 
-//import com.ramotion.navigationtoolbar.example.FoldingCellListAdapter
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import com.ramotion.foldingcell.FoldingCell
-import com.ramotion.navigationtoolbar.example.R
 import com.ramotion.navigationtoolbar.example.Model.ViewPagerDataSet
+import com.ramotion.navigationtoolbar.example.R
 import java.util.*
 
 
@@ -27,10 +27,10 @@ class ViewPagerAdapter(val context:Context, private val count: Int,
             }
 
             override fun onChildViewAttachedToWindow(view: View) {
-                view.setOnClickListener({
+                view.setOnClickListener {
                     val holder = getChildViewHolder(view)
                     onClickListener.onItemClicked(holder.adapterPosition, view)
-                })
+                }
             }
         })
     }

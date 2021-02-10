@@ -50,7 +50,7 @@ class login_activity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        val db = Firebase.firestore;
+        val db = Firebase.firestore
 
         search.setOnClickListener { view ->
             val intent = Intent(this, search_activity::class.java)
@@ -86,7 +86,7 @@ class login_activity : AppCompatActivity() {
         var auth = Firebase.auth
         var user = auth.currentUser
         var delete = cell.findViewById<TextView>(R.id.content_delete_btn)
-        var anon = user?.isAnonymous()
+        var anon = user?.isAnonymous
         if(anon == true){
             upload.visibility =  View.GONE
             delete.visibility = View.GONE
